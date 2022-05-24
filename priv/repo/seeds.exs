@@ -9,3 +9,8 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+Code.require_file("test/support/fixtures/accounts_fixtures.ex")
+
+# Add a user
+Athena.AccountsFixtures.user_fixture()
