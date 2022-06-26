@@ -50,7 +50,8 @@ defmodule Athena.MixProject do
       {:gettext, "~> 0.19"},
       {:jason, "~> 1.3"},
       {:plug_cowboy, "~> 2.5"},
-      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev}
+      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
+      {:ex_machina, "~> 2.7", only: [:test, :dev]}
     ]
   end
 

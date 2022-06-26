@@ -55,6 +55,14 @@ defmodule AthenaWeb.Router do
     end
   end
 
+  scope "/", AthenaWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    live_session :defaul, on_mount: AthenaWeb.UserAuthLive do
+      live "/", Catalog.CourseLive, :index
+    end
+  end
+
   ## Authentication routes
 
   scope "/", AthenaWeb do

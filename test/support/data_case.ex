@@ -24,6 +24,7 @@ defmodule Athena.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Athena.DataCase
+      import Athena.Factory
     end
   end
 

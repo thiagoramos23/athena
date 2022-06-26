@@ -13,4 +13,4 @@
 Code.require_file("test/support/fixtures/accounts_fixtures.ex")
 
 # Add a user
-Athena.AccountsFixtures.user_fixture()
+Athena.AccountsFixtures.user_fixture(%{email: "test@test.com", password: "123123123123123"})
