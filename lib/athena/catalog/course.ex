@@ -6,8 +6,10 @@ defmodule Athena.Catalog.Course do
     field :slug, Ecto.UUID, default: Ecto.UUID.autogenerate()
     field :cover_image_url, :string
     field :description, :string
+    field :full_description, :string
     field :labels, :string
     field :name, :string
+    field :slug_name, :string
     field :price, :integer
 
     timestamps()
@@ -16,7 +18,7 @@ defmodule Athena.Catalog.Course do
   @doc false
   def changeset(course, attrs) do
     course
-    |> cast(attrs, [:name, :description, :price, :cover_image_url, :labels])
-    |> validate_required([:name, :description, :price, :cover_image_url, :labels, :slug])
+    |> cast(attrs, [:name, :slug_name, :full_description, :description, :price, :cover_image_url, :labels])
+    |> validate_required([:name, :slug_name, :full_description, :description, :price, :cover_image_url, :labels, :slug])
   end
 end

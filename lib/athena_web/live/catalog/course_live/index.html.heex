@@ -1,0 +1,7 @@
+<div class="sm:flex sm:flex-items sm:justify-center">
+  <%= for course <- @courses do %>
+    <%= live_redirect to: Routes.course_show_path(@socket, :show, course.slug_name) do %>
+      <CourseComponent.course course={course} />
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,22 @@
+<div>
+  <h1 class="text-2xl font-bold text-gray-800 antialiase mb-4"><%= @course.name %></h1>
+  <div clas="flex items-center justify-between">
+    <div class="inline-block prose max-w-lg">
+      <span><%= @course.full_description %></span>
+    </div>
+    <div class="h-60 inline-block">
+      <img class="object-cover shadow-lg" src={"#{assigns.course.cover_image_url}"} alt="">
+    </div>
+  </div>
+
+  <div>
+    <h3 class="text-2xl font-semibold text-gray-600 antialiase mb-4">Other Courses you may like</h3>
+    <div class="flex flex-items">
+      <%= for course <- @courses do %>
+        <%= live_redirect to: Routes.course_show_path(@socket, :show, course.slug_name) do %>
+          <CourseComponent.course course={course} />
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

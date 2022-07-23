@@ -1,4 +1,4 @@
-defmodule AthenaWeb.Catalog.CourseLive do
+defmodule AthenaWeb.Catalog.CourseLive.Index do
   use AthenaWeb, :live_view
 
   alias Athena.Catalog

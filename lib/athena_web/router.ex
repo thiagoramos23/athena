@@ -59,7 +59,8 @@ defmodule AthenaWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     live_session :defaul, on_mount: AthenaWeb.UserAuthLive do
-      live "/", Catalog.CourseLive, :index
+      live "/", Catalog.CourseLive.Index, :index
+      live "/course/:slug_name", Catalog.CourseLive.Show, :show
     end
   end
 
