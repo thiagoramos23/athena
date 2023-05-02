@@ -37,7 +37,7 @@ jobs:
           mix local.hex --force
           mix deps.get
           mix deps.compile
-  mix-linter:
+  mix-lint:
     needs: dependencies
     runs-on: ubuntu-latest
     strategy:
@@ -109,7 +109,7 @@ jobs:
           mix clean
         shell: sh
   deploy:
-    needs: mix-test
+    needs: [mix-test, mix-lint]
     name: Deploy application
     runs-on: ubuntu-latest
     steps:
