@@ -71,7 +71,7 @@ defmodule Athena.MixProject do
       "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"],
       lint: [
         "format --check-formatted",
-        "credo -C compile-time-config",
+        "credo",
         # "sobelow --config",
         "deps.unlock --check-unused"
         # "hex.audit"
