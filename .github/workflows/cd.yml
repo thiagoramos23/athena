@@ -64,7 +64,7 @@ jobs:
             deps
             _build
           key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
-     - name: Run Linter
+      - name: Run Linter
         run: mix lint
   mix-test:
     needs: dependencies
