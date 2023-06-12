@@ -19,7 +19,9 @@ module.exports = {
     },
   },
   plugins: [
+    require('@tailwindcss/typography'),
     require("@tailwindcss/forms"),
+    require('@tailwindcss/aspect-ratio'),
     // Allows prefixing tailwind classes with LiveView classes to add rules
     // only when LiveView classes are applied, for example:
     //
