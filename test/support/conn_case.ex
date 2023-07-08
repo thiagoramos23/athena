@@ -28,6 +28,7 @@ defmodule AthenaWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import AthenaWeb.ConnCase
+      import Athena.Factory
     end
   end
 

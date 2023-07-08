@@ -1,15 +1,15 @@
 defmodule AthenaWeb.MainLayout do
   use Phoenix.Component
+  use AthenaWeb, :html
 
   def header(assigns) do
     ~H"""
     <header class="mx-auto bg-gray-900">
       <nav class="flex items-center justify-center p-6 lg:px-8" aria-label="Global">
         <div class="hidden lg:flex lg:gap-x-12">
-          <a href="#" class="text-sm font-semibold text-white leading-6">Product</a>
-          <a href="#" class="text-sm font-semibold text-white leading-6">Features</a>
-          <a href="#" class="text-sm font-semibold text-white leading-6">Marketplace</a>
-          <a href="#" class="text-sm font-semibold text-white leading-6">Company</a>
+          <a href="#" class="text-sm font-semibold text-white leading-6">Cursos em Destaque</a>
+          <a href="#" class="text-sm font-semibold text-white leading-6">Cursos</a>
+          <a href="#" class="text-sm font-semibold text-white leading-6">Meus Cursos</a>
         </div>
       </nav>
       <!-- Mobile menu, show/hide based on menu open state. -->
@@ -24,7 +24,7 @@ defmodule AthenaWeb.MainLayout do
                   href="#"
                   class="block px-3 py-2 -mx-3 text-base font-semibold text-white rounded-lg leading-7 hover:bg-gray-800"
                 >
-                  Courses
+                  Cursos
                 </a>
               </div>
               <div class="py-6">
@@ -32,7 +32,7 @@ defmodule AthenaWeb.MainLayout do
                   href="#"
                   class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-800"
                 >
-                  Log in
+                  Entrar
                 </a>
               </div>
             </div>
@@ -45,17 +45,7 @@ defmodule AthenaWeb.MainLayout do
 
   def headline(assigns) do
     ~H"""
-    <div class="relative overflow-hidden bg-gray-900 isolate">
-      <div
-        class="absolute left-[calc(50%-4rem)] top-10 -z-10 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]"
-        aria-hidden="true"
-      >
-        <div
-          class="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-20"
-          style="clip-path: polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)"
-        >
-        </div>
-      </div>
+    <div class="relative overflow-hidden bg-gray-900 -z-20">
       <div class="px-6 py-24 max-w-7xl lg:px-8">
         <div class="max-w-xl lg:text-center">
           <h2 class="mt-2 text-5xl font-normal tracking-normal text-left text-white sm:leading-tight sm:text-5xl">
@@ -71,46 +61,41 @@ defmodule AthenaWeb.MainLayout do
     """
   end
 
-  def featured_course(assigns) do
+  def show_course(assigns) do
     ~H"""
-    <div class="mx-10">
-      <div class="font-sans font-bold text-blue-400">
-        Destaque
-      </div>
-      <div class="flex flex-col items-start mt-5 text-xl font-bold text-white antialised">
-        Criando o Wordle com Elixir and Phoenix LiveView
-        <span class="mt-2 text-sm font-normal text-gray-400">
-          Aprenda como criar o jogo do Wordle completo com animações e ainda aprenda a fazer o deploy na nuvem
-        </span>
-      </div>
-      <div class="mt-12">
-        <ul role="list" class="grid grid-cols-2 gap-y-8 sm:grid-cols-3 sm:gap-x-2 lg:grid-cols-3">
-          <div :for={_i <- 0..8}>
-            <li class="relative">
-              <.link href="#">
-                <div class="block w-3/4 h-20 overflow-hidden bg-gray-100 rounded-lg outline-none group aspect-h-1 aspect-w-2">
-                  <img
-                    src="https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80"
-                    alt=""
-                    class="object-cover pointer-events-none group-hover:opacity-75"
-                  />
-                  <button type="button" class="absolute inset-0 focus:outline-none">
-                    <span class="sr-only">Setup do projeto com Elixir and Phoenix Live View</span>
-                  </button>
-                </div>
-              </.link>
-              <.link href="#">
-                <p class="block mt-3 text-sm font-medium text-white truncate pointer-events-none">
-                  Setup do projeto com Elixir and Phoenix Live View
-                </p>
-              </.link>
-              <p class="block mt-2 text-sm font-medium text-gray-500 pointer-events-none">
-                Aprenda a configurar o projeto
+    <div class="flex flex-col items-start mt-5 text-xl font-bold text-white antialised">
+      <%= @course.name %>
+      <span class="mt-2 text-sm font-normal text-gray-400">
+        <%= @course.description %>
+      </span>
+    </div>
+    <div class="mt-12">
+      <ul role="list" class="grid grid-cols-2 gap-y-8 sm:grid-cols-3 sm:gap-x-2 lg:grid-cols-3">
+        <div :for={_i <- 0..8}>
+          <li class="relative">
+            <.link navigate={~p"/courses/#{@course.id}/classes/1"}>
+              <div class="block w-3/4 h-20 overflow-hidden bg-gray-100 rounded-lg outline-none group aspect-h-1 aspect-w-2">
+                <img
+                  src="https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80"
+                  alt=""
+                  class="object-cover pointer-events-none group-hover:opacity-75"
+                />
+                <button type="button" class="absolute inset-0 focus:outline-none">
+                  <span class="sr-only">Setup do projeto com Elixir and Phoenix Live View</span>
+                </button>
+              </div>
+            </.link>
+            <.link navigate={~p"/courses/#{@course.id}/classes/1"}>
+              <p class="block mt-3 text-sm font-medium text-white truncate pointer-events-none">
+                Setup do projeto com Elixir and Phoenix Live View
               </p>
-            </li>
-          </div>
-        </ul>
-      </div>
+            </.link>
+            <p class="block mt-2 text-sm font-medium text-gray-500 pointer-events-none">
+              Aprenda a configurar o projeto
+            </p>
+          </li>
+        </div>
+      </ul>
     </div>
     """
   end

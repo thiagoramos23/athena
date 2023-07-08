@@ -5,9 +5,12 @@ defmodule Athena.Education.Course do
   schema "courses" do
     field(:name, :string)
     field(:description, :string)
+    field(:featured, :boolean, default: false)
+
+    timestamps()
   end
 
-  @valid_keys [:name, :description]
+  @valid_keys [:name, :description, :featured]
 
   def changeset(course, attrs) do
     course
