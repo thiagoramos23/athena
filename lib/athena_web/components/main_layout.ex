@@ -1,4 +1,5 @@
 defmodule AthenaWeb.MainLayout do
+  @moduledoc false
   use Phoenix.Component
   use AthenaWeb, :html
 
@@ -71,27 +72,27 @@ defmodule AthenaWeb.MainLayout do
     </div>
     <div class="mt-12">
       <ul role="list" class="grid grid-cols-2 gap-y-8 sm:grid-cols-3 sm:gap-x-2 lg:grid-cols-3">
-        <div :for={_i <- 0..8}>
+        <div :for={klass <- @course.classes}>
           <li class="relative">
-            <.link navigate={~p"/courses/#{@course.id}/classes/1"}>
+            <.link navigate={~p"/courses/#{@course.id}/classes/#{klass.slug}"}>
               <div class="block w-3/4 h-20 overflow-hidden bg-gray-100 rounded-lg outline-none group aspect-h-1 aspect-w-2">
                 <img
-                  src="https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80"
+                  src={klass.thumbnail_url}
                   alt=""
                   class="object-cover pointer-events-none group-hover:opacity-75"
                 />
                 <button type="button" class="absolute inset-0 focus:outline-none">
-                  <span class="sr-only">Setup do projeto com Elixir and Phoenix Live View</span>
+                  <span class="sr-only"><%= klass.name %></span>
                 </button>
               </div>
             </.link>
-            <.link navigate={~p"/courses/#{@course.id}/classes/1"}>
+            <.link navigate={~p"/courses/#{@course.id}/classes/#{klass.slug}"}>
               <p class="block mt-3 text-sm font-medium text-white truncate pointer-events-none">
-                Setup do projeto com Elixir and Phoenix Live View
+                <%= klass.name %>
               </p>
             </.link>
             <p class="block mt-2 text-sm font-medium text-gray-500 pointer-events-none">
-              Aprenda a configurar o projeto
+              <%= klass.description %>
             </p>
           </li>
         </div>

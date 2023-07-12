@@ -11,10 +11,10 @@ defmodule AthenaWeb.Public.CoursesLive.Index do
   end
 
   defp get_featured_course do
-    Education.featured_course()
+    Education.featured_course(preload: [:classes])
   end
 
   defp get_courses do
-    Education.not_featured_courses()
+    Education.not_featured_courses(preload: [:classes])
   end
 end

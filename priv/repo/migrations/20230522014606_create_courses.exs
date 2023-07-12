@@ -3,6 +3,7 @@ defmodule Athena.Repo.Migrations.CreateCourses do
 
   def change do
     create table(:courses) do
+      add(:slug, :string, null: false)
       add(:name, :string, null: false)
       add(:description, :string, null: false)
       add(:featured, :boolean, null: false, default: false)
@@ -11,5 +12,7 @@ defmodule Athena.Repo.Migrations.CreateCourses do
 
     create(index(:courses, [:name]))
     create(index(:courses, [:featured]))
+
+    create unique_index(:courses, [:slug])
   end
 end
