@@ -73,8 +73,8 @@ defmodule AthenaWeb.MainLayout do
     <div class="mt-12">
       <ul role="list" class="grid grid-cols-2 gap-y-8 sm:grid-cols-3 sm:gap-x-2 lg:grid-cols-3">
         <div :for={klass <- @course.classes}>
-          <li class="relative">
-            <.link navigate={~p"/courses/#{@course.id}/classes/#{klass.slug}"}>
+          <.link id={klass.slug} navigate={~p"/courses/#{@course.slug}/classes/#{klass.slug}"}>
+            <li class="relative">
               <div class="block w-3/4 h-20 overflow-hidden bg-gray-100 rounded-lg outline-none group aspect-h-1 aspect-w-2">
                 <img
                   src={klass.thumbnail_url}
@@ -85,16 +85,14 @@ defmodule AthenaWeb.MainLayout do
                   <span class="sr-only"><%= klass.name %></span>
                 </button>
               </div>
-            </.link>
-            <.link navigate={~p"/courses/#{@course.id}/classes/#{klass.slug}"}>
               <p class="block mt-3 text-sm font-medium text-white truncate pointer-events-none">
                 <%= klass.name %>
               </p>
-            </.link>
-            <p class="block mt-2 text-sm font-medium text-gray-500 pointer-events-none">
-              <%= klass.description %>
-            </p>
-          </li>
+              <p class="block mt-2 text-sm font-medium text-gray-500 pointer-events-none">
+                <%= klass.description %>
+              </p>
+            </li>
+          </.link>
         </div>
       </ul>
     </div>

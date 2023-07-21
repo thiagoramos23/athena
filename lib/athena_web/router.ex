@@ -18,7 +18,7 @@ defmodule AthenaWeb.Router do
     pipe_through :browser
 
     live "/", Public.CoursesLive.Index, :index
-    live "/courses/:course_id/classes/:class_slug", Public.ClassesLive.Show, :show
+    live "/courses/:course_slug/classes/:class_slug", Public.ClassesLive.Show, :show
   end
 
   scope "/platform", AthenaWeb do

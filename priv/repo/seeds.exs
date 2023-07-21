@@ -15,7 +15,7 @@ alias Athena.Education.Course
 alias Athena.Education.Class
 alias Athena.Repo
 
-{:ok, course} =
+{:ok, featured_course} =
   %Course{}
   |> Course.changeset(%{
     name: "Elixir in Action",
@@ -25,11 +25,22 @@ alias Athena.Repo
   })
   |> Repo.insert()
 
-for i <- 0..5 do
+{:ok, normal_course} =
+  %Course{}
+  |> Course.changeset(%{
+    name: "iOS for The Kids",
+    description: "Best iOS content for your kids to learn how to program",
+    slug: "ios-for-the-kids",
+    featured: false
+  })
+  |> Repo.insert()
+
+for i <- 0..5,
+    course <- [featured_course, normal_course] do
   %Class{}
   |> Class.changeset(%{
     name: "How to start with elixir",
-    slug: "how-to-start-with-elixir-#{i}",
+    slug: "how-to-start-with-#{course.slug}-#{i}",
     description: "Description",
     video_url: "https://player.vimeo.com/video/822796259?h=17a8f7232b&app_id=122963",
     thumbnail_url:

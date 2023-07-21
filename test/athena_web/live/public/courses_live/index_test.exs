@@ -20,22 +20,25 @@ defmodule AthenaWeb.Public.CousesLive.IndexTest do
 
     [class1, class2] = featured_course.classes
 
-    {:ok, _view, html} = live(disconnected)
+    {:ok, view, html} = live(disconnected)
     assert html =~ featured_course.name
     assert html =~ featured_course.description
     assert html =~ class1.name
     assert html =~ class1.description
-    assert html =~ class1.thumbnail_url
     assert html =~ class2.name
-    assert html =~ class2.thumbnail_url
     assert html =~ class2.description
+
+    for thumbnail_url <- [class1.thumbnail_url, class2.thumbnail_url] do
+      course_image = element(view, ~s(img[src*="#{thumbnail_url}"]))
+      assert has_element?(course_image)
+    end
   end
 
   test "will show all the other courses", %{conn: conn, courses: courses} do
     disconnected = conn |> get(~p"/")
     assert html_response(disconnected, 200) =~ "Cursos"
 
-    {:ok, _view, html} = live(disconnected)
+    {:ok, view, html} = live(disconnected)
 
     for course <- courses do
       [class1, class2] = course.classes
@@ -43,10 +46,34 @@ defmodule AthenaWeb.Public.CousesLive.IndexTest do
       assert html =~ course.description
       assert html =~ class1.name
       assert html =~ class1.description
-      assert html =~ class1.thumbnail_url
       assert html =~ class2.name
       assert html =~ class2.description
-      assert html =~ class2.thumbnail_url
+
+      for thumbnail_url <- [class1.thumbnail_url, class2.thumbnail_url] do
+        course_image = element(view, ~s(img[src*="#{thumbnail_url}"]))
+        assert has_element?(course_image)
+      end
     end
+  end
+
+  test "user clicks in a class will send the user to the show class page", %{
+    conn: conn,
+    featured_course: featured_course
+  } do
+    class =
+      insert(:class,
+        name: "Class for featured course",
+        description: "Description 1",
+        course: featured_course
+      )
+
+    {:ok, view, _html} = live(conn, ~p"/")
+
+    view
+    |> element("##{class.slug}")
+    |> render_click()
+
+    {path, _flash} = assert_redirect(view)
+    assert path == ~p"/courses/#{featured_course.slug}/classes/#{class.slug}"
   end
 end
