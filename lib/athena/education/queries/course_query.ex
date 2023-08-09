@@ -10,6 +10,11 @@ defmodule Athena.Education.Queries.CourseQuery do
       as: :course
   end
 
+  def by_slug(query, slug) do
+    query
+    |> where([course: course], course.slug == ^slug)
+  end
+
   def featured_course(query) do
     query
     |> where([course: course], course.featured == true)

@@ -13,36 +13,36 @@
   <div class="flex justify-between max-w-6xl mx-auto mt-12 flex-items">
     <div class="flex flex-col justify-start w-3/5 flex-items">
       <div class="flex flex-col items-start text-3xl antialiased font-semibold flex-items">
-        Stylying active links
+        <%= @class.name %>
         <span class="mt-4 text-lg font-normal">
-          Conditinally apply classes to target different application states.
+          <%= @class.class_text %>
         </span>
       </div>
       <div class="mt-12 text-left prose invert">
-        <%= raw(@description) %>
+        <%= raw(@class.description) %>
       </div>
     </div>
 
     <div class="flex flex-col items-start w-2/5 ml-16 flex-items">
       <div class="flex flex-col mb-4 font-semibold flex-items text-md">
-        Tailwind Mastery
-        <span class="text-sm font-normal text-gray-500">
-          21 lessons - 2:29:34
+        <%= @class.course.name %>
+        <span class="pl-4 text-sm font-normal text-gray-500">
+          <%= @total_class_count %> lessons - 2:29:34
         </span>
       </div>
       <ul
-        :for={number <- 0..18}
+        :for={{class, number} <- Enum.with_index(@classes, 1)}
         class="flex flex-col justify-between w-full px-3 py-2 rounded hover:bg-gray-800/50 flex-items"
       >
         <li class="flex justify-between flex-items">
           <div class="flex text-gray-500 flex-items">
             <label class="text-sm"><%= number %></label>
             <div class="ml-4 text-gray-200 text-md">
-              Scaffolding a mutipanel layout
+              <%= class.name %>
             </div>
           </div>
           <div class="text-sm text-gray-500">
-            12:58
+            <%= div(class.class_length, 60) %>:<%= rem(class.class_length, 60) %>
           </div>
         </li>
       </ul>
