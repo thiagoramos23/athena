@@ -13,6 +13,8 @@ defmodule Athena.Education.Course do
     field(:featured, :boolean, default: false)
     has_many :classes, Athena.Education.Class
 
+    many_to_many :teachers, Athena.Education.Teacher, join_through: Athena.Education.TeacherCourse
+
     timestamps()
   end
 

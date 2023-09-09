@@ -8,12 +8,14 @@ defmodule Athena.Education.Class do
   schema "classes" do
     field(:slug, :string)
     field(:name, :string)
+    field(:summary, :string)
     field(:description, :string)
     field(:class_length, :integer)
     field(:video_url, :string)
     field(:thumbnail_url, :string)
-    field(:class_text, :string)
+    field(:state, Ecto.Enum, values: [:public, :private], default: :public)
     belongs_to :course, Athena.Education.Course
+    many_to_many :students, Athena.Education.Student, join_through: Athena.Education.StudentClass
 
     timestamps()
   end
@@ -21,11 +23,12 @@ defmodule Athena.Education.Class do
   @required_fields [
     :slug,
     :name,
+    :summary,
     :description,
     :class_length,
     :video_url,
     :thumbnail_url,
-    :class_text,
+    :state,
     :course_id
   ]
 

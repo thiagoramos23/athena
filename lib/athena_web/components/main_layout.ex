@@ -5,14 +5,21 @@ defmodule AthenaWeb.MainLayout do
 
   def header(assigns) do
     ~H"""
-    <header class="mx-auto bg-gray-900">
-      <nav class="flex items-center justify-center p-6 lg:px-8" aria-label="Global">
-        <div class="hidden lg:flex lg:gap-x-12">
-          <a href="#" class="text-sm font-semibold text-white leading-6">Cursos em Destaque</a>
-          <a href="#" class="text-sm font-semibold text-white leading-6">Cursos</a>
-          <a href="#" class="text-sm font-semibold text-white leading-6">Meus Cursos</a>
+    <header class="mx-auto bg-transparent">
+      <div class="flex justify-between">
+        <nav class="flex items-center justify-center p-6 lg:px-8" aria-label="Global">
+          <div class="hidden lg:flex lg:gap-x-12">
+            <a href="/" class="text-sm font-semibold text-white leading-6">Cursos em Destaque</a>
+            <a href="/" class="text-sm font-semibold text-white leading-6">Cursos</a>
+            <a href="/" class="text-sm font-semibold text-white leading-6">Meus Cursos</a>
+          </div>
+        </nav>
+        <div class="flex items-center justify-end p-6 lg:px-8" if={!is_nil(@current_user)}>
+          <label class="text-sm font-semibold text-white leading-6">
+            <%= @current_user.email %>
+          </label>
         </div>
-      </nav>
+      </div>
       <!-- Mobile menu, show/hide based on menu open state. -->
       <div class="lg:hidden" role="dialog" aria-modal="true">
         <!-- Background backdrop, show/hide based on slide-over state. -->
@@ -46,7 +53,7 @@ defmodule AthenaWeb.MainLayout do
 
   def headline(assigns) do
     ~H"""
-    <div class="relative overflow-hidden bg-gray-900 -z-20">
+    <div class="relative overflow-hidden bg-transparent -z-20">
       <div class="px-6 py-24 max-w-7xl lg:px-8">
         <div class="max-w-xl lg:text-center">
           <h2 class="mt-2 text-5xl font-normal tracking-normal text-left text-white sm:leading-tight sm:text-5xl">
@@ -87,9 +94,21 @@ defmodule AthenaWeb.MainLayout do
               </div>
               <p class="block mt-3 text-sm font-medium text-white truncate pointer-events-none">
                 <%= klass.name %>
+                <div
+                  :if={klass.state == :public}
+                  class="w-10 px-1.5 py-0.5 text-sm font-medium text-white bg-green-800 rounded rounded-lg"
+                >
+                  Free
+                </div>
+                <div
+                  :if={klass.state == :private}
+                  class="w-10 px-2 py-0.5 text-sm font-medium text-white bg-red-800 rounded rounded-lg"
+                >
+                  Pro
+                </div>
               </p>
               <p class="block mt-2 text-sm font-medium text-gray-500 pointer-events-none">
-                <%= klass.description %>
+                <%= klass.summary %>
               </p>
             </li>
           </.link>

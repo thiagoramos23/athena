@@ -5,12 +5,13 @@ defmodule Athena.Repo.Migrations.CreateClasses do
     create table(:classes) do
       add(:slug, :string, null: false)
       add(:name, :string, null: false)
+      add(:summary, :citext, null: false)
       add(:description, :citext, null: false)
       add(:class_length, :integer, null: false)
-      add(:class_text, :citext, null: false)
       add(:video_url, :string, null: false)
       add(:thumbnail_url, :string, null: false)
-      add(:course_id, references(:courses), on_delete: :nothing, null: false)
+      add(:state, :string, default: "public")
+      add(:course_id, references(:courses, on_delete: :nothing), null: false)
 
       timestamps()
     end
