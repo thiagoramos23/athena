@@ -5,6 +5,8 @@ defmodule Athena.Repo.Migrations.CreateStudents do
     create table(:students) do
       add(:user_id, references(:users, on_delete: :nothing), null: false)
       add(:state, :string, default: "paid")
+
+      timestamps()
     end
 
     create index(:students, [:user_id])

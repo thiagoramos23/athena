@@ -20,6 +20,9 @@ defmodule Checks do
   end
 end
 
+{:ok, _user} =
+  Athena.Accounts.register_user(%{email: "thiago@thiago.com", password: "123123123123"})
+
 {:ok, featured_course} =
   %Course{}
   |> Course.changeset(%{

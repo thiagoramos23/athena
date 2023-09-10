@@ -7,6 +7,8 @@ defmodule Athena.Repo.Migrations.CreateStudentClasses do
       add(:completed_at, :utc_datetime)
       add(:class_id, references(:classes, on_delete: :nothing), primary_key: true)
       add(:student_id, references(:students, on_delete: :nothing), primary_key: true)
+
+      timestamps()
     end
 
     create index(:student_classes, [:class_id])

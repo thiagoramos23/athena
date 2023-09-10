@@ -18,16 +18,18 @@ defmodule AthenaWeb.Router do
   end
 
   scope "/", AthenaWeb do
-    pipe_through [:browser, :require_authenticated_user]
+    pipe_through :browser
 
-    live_session :only_authenticated_user,
-      on_mount: [{AthenaWeb.UserAuth, :ensure_authenticated}] do
-      live "/", Public.CoursesLive.Index, :index
-      live "/courses/:course_slug/classes/:class_slug", Public.ClassesLive.Show, :show
+    live_session :public,
+      on_mount: [{AthenaWeb.UserAuth, :mount_current_user}] do
+      live "/", CoursesLive.Index, :index
+      live "/courses/:course_slug/classes/:class_slug", ClassesLive.Show, :show
+      live "/checkout", CheckoutLive.Index, :index
     end
   end
 
-  scope "/platform", AthenaWeb do
+  scope "/", AthenaWeb do
+    pipe_through [:browser, :require_authenticated_user]
   end
 
   # Other scopes may use custom stacks.

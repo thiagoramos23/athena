@@ -8,6 +8,9 @@ defmodule Athena.Accounts.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
 
+    has_one :student, Athena.Education.Student
+    has_one :teacher, Athena.Education.Teacher
+
     timestamps()
   end
 
@@ -152,5 +155,12 @@ defmodule Athena.Accounts.User do
     else
       add_error(changeset, :current_password, "is not valid")
     end
+  end
+
+  def student?(nil), do: false
+
+  def student?(user) do
+    IO.inspect(user.student, label: "STUDENT")
+    !is_nil(user.student)
   end
 end

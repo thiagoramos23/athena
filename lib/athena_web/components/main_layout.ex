@@ -14,7 +14,7 @@ defmodule AthenaWeb.MainLayout do
             <a href="/" class="text-sm font-semibold text-white leading-6">Meus Cursos</a>
           </div>
         </nav>
-        <div class="flex items-center justify-end p-6 lg:px-8" if={!is_nil(@current_user)}>
+        <div :if={!is_nil(@current_user)} class="flex items-center justify-end p-6 lg:px-8">
           <label class="text-sm font-semibold text-white leading-6">
             <%= @current_user.email %>
           </label>

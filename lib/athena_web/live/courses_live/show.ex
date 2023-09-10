@@ -1,4 +1,4 @@
-defmodule AthenaWeb.Public.CoursesLive.Show do
+defmodule AthenaWeb.CoursesLive.Show do
   use AthenaWeb, :live_view
 
   def mount(_params, _session, socket) do

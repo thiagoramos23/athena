@@ -5,6 +5,8 @@ defmodule Athena.Repo.Migrations.CreateTeachers do
     create table(:teachers) do
       add(:user_id, references(:users, on_delete: :nothing), null: false)
       add(:state, :string, default: "active")
+
+      timestamps()
     end
 
     create index(:teachers, [:user_id])

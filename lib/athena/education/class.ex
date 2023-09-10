@@ -39,4 +39,8 @@ defmodule Athena.Education.Class do
 
     # Add validation to validate the uniqueness of the slug
   end
+
+  def public?(class) do
+    class.state == :public
+  end
 end

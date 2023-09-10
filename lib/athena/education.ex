@@ -3,11 +3,22 @@ defmodule Athena.Education do
   All the main functions for the education subdomain
   """
   import Ecto.Query
+
+  alias Athena.Accounts.User
+  alias Athena.Education.Class
   alias Athena.Education.Finder.CourseFinder
   alias Athena.Repo
 
   defdelegate featured_course(opts), to: CourseFinder
   defdelegate not_featured_courses(opts), to: CourseFinder
+
+  def can_see?(class, nil) do
+    Class.public?(class)
+  end
+
+  def can_see?(class, user) do
+    Class.public?(class) || User.student?(user)
+  end
 
   def get_class(class_slug) do
     Repo.get_by(Athena.Education.Class, slug: class_slug)
