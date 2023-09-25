@@ -49,7 +49,7 @@ for i <- 0..5,
     course <- [featured_course, normal_course] do
   %Class{}
   |> Class.changeset(%{
-    name: "How to start with elixir",
+    name: "How to start with elixir #{i}",
     slug: "how-to-start-with-#{course.slug}-#{i}",
     summary: "Learning how to start with the Elixir Language and become a millionaire",
     description: class_description,

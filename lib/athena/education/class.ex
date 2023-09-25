@@ -13,9 +13,11 @@ defmodule Athena.Education.Class do
     field(:class_length, :integer)
     field(:video_url, :string)
     field(:thumbnail_url, :string)
-    field(:state, Ecto.Enum, values: [:public, :private], default: :public)
+    field(:state, Ecto.Enum, values: [:public, :private, :paid], default: :public)
     belongs_to :course, Athena.Education.Course
     many_to_many :students, Athena.Education.Student, join_through: Athena.Education.StudentClass
+
+    field :completed, :boolean, virtual: true, default: false
 
     timestamps()
   end

@@ -1,5 +1,4 @@
 <div class="mx-auto text-center text-gray-200 max-w-7xl">
-  <MainLayout.header current_user={@current_user} />
   <div class="w-full aspect-video">
     <div style="padding:50.25% 0 0 0;position:relative;">
       <iframe
@@ -13,7 +12,21 @@
   <div class="flex justify-between max-w-6xl mx-auto mt-12 flex-items">
     <div class="flex flex-col justify-start w-3/5 flex-items">
       <div class="flex flex-col items-start text-3xl antialiased font-semibold flex-items">
-        <%= @class.name %>
+        <div class="flex justify-between">
+          <%= @class.name %>
+          <%= if @current_user do %>
+            <.button :if={@class.completed} class="ml-6 text-black bg-gray-800" disabled>
+              Aula completada
+            </.button>
+            <.button
+              :if={not @class.completed}
+              class="ml-6 text-black bg-green-900"
+              phx-click="complete_class"
+            >
+              Completar Aula
+            </.button>
+          <% end %>
+        </div>
         <span class="mt-4 text-lg font-normal">
           <%= @class.summary %>
         </span>
@@ -34,17 +47,25 @@
         :for={{class, number} <- Enum.with_index(@classes, 1)}
         class="flex flex-col justify-between w-full px-3 py-2 rounded hover:bg-gray-800/50 flex-items"
       >
-        <li class="flex justify-between flex-items">
-          <div class="flex text-gray-500 flex-items">
-            <label class="text-sm"><%= number %></label>
-            <div class="ml-4 text-gray-200 text-md">
-              <%= class.name %>
+        <.link navigate={~p"/courses/#{@class.course.slug}/classes/#{class.slug}"}>
+          <li class="flex justify-between flex-items">
+            <div class="flex text-gray-500 flex-items">
+              <.icon :if={!@class.completed} name="hero-check-circle" class="mt-1 mr-4" />
+              <.icon
+                :if={@class.completed}
+                name="hero-check-circle"
+                class="mt-1 mr-4 text-green-900"
+              />
+              <label class="mt-1 text-sm"><%= number %></label>
+              <div class="ml-4 text-gray-200 text-md">
+                <%= class.name %>
+              </div>
             </div>
-          </div>
-          <div class="text-sm text-gray-500">
-            <%= div(class.class_length, 60) %>:<%= rem(class.class_length, 60) %>
-          </div>
-        </li>
+            <div class="text-sm text-gray-500">
+              <.time_formatted time={class.class_length} />
+            </div>
+          </li>
+        </.link>
       </ul>
     </div>
   </div>

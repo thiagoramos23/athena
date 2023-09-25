@@ -3,6 +3,8 @@ defmodule AthenaWeb.MainLayout do
   use Phoenix.Component
   use AthenaWeb, :html
 
+  slot :inner_block, required: true
+
   def header(assigns) do
     ~H"""
     <header class="mx-auto bg-transparent">
@@ -14,11 +16,7 @@ defmodule AthenaWeb.MainLayout do
             <a href="/" class="text-sm font-semibold text-white leading-6">Meus Cursos</a>
           </div>
         </nav>
-        <div :if={!is_nil(@current_user)} class="flex items-center justify-end p-6 lg:px-8">
-          <label class="text-sm font-semibold text-white leading-6">
-            <%= @current_user.email %>
-          </label>
-        </div>
+        <%= render_slot(@inner_block) %>
       </div>
       <!-- Mobile menu, show/hide based on menu open state. -->
       <div class="lg:hidden" role="dialog" aria-modal="true">
@@ -96,12 +94,18 @@ defmodule AthenaWeb.MainLayout do
                 <%= klass.name %>
                 <div
                   :if={klass.state == :public}
-                  class="w-10 px-1.5 py-0.5 text-sm font-medium text-white bg-green-800 rounded rounded-lg"
+                  class="w-10 px-1.5 py-0.5 text-sm font-medium text-white bg-gradient-to-r from-green-500 to-green-800 rounded rounded-lg"
                 >
                   Free
                 </div>
                 <div
                   :if={klass.state == :private}
+                  class="w-32 px-2 py-0.5 text-sm font-medium text-white bg-gradient-to-r from-cyan-500 to-blue-500 rounded rounded-lg"
+                >
+                  Necessita Login
+                </div>
+                <div
+                  :if={klass.state == :paid}
                   class="w-10 px-2 py-0.5 text-sm font-medium text-white bg-red-800 rounded rounded-lg"
                 >
                   Pro

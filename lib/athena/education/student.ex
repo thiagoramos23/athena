@@ -8,7 +8,7 @@ defmodule Athena.Education.Student do
   import Ecto.Changeset
 
   schema "students" do
-    field(:state, Ecto.Enum, values: [:paid, :scholarship, :inactive], default: :paid)
+    field(:state, Ecto.Enum, values: [:paid, :scholarship, :free], default: :free)
     belongs_to :user, Athena.Accounts.User
     many_to_many :courses, Athena.Education.Class, join_through: Athena.Education.StudentCourse
     many_to_many :classes, Athena.Education.Class, join_through: Athena.Education.StudentClass

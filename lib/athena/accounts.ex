@@ -23,7 +23,7 @@ defmodule Athena.Accounts do
 
   """
   def get_user_by_email(email) when is_binary(email) do
-    Repo.get_by(User, email: email)
+    Repo.get_by(User, email: email) |> Repo.preload([:student, :teacher])
   end
 
   @doc """
@@ -40,7 +40,7 @@ defmodule Athena.Accounts do
   """
   def get_user_by_email_and_password(email, password)
       when is_binary(email) and is_binary(password) do
-    user = Repo.get_by(User, email: email)
+    user = Repo.get_by(User, email: email) |> Repo.preload([:student, :teacher])
     if User.valid_password?(user, password), do: user
   end
 
@@ -75,6 +75,15 @@ defmodule Athena.Accounts do
 
   """
   def register_user(attrs) do
+    Repo.transaction(fn ->
+      with {:ok, user} <- do_register_user(attrs),
+           {:ok, _student} <- Athena.Education.create_student(%{state: :free, user_id: user.id}) do
+        Repo.preload(user, [:student])
+      end
+    end)
+  end
+
+  defp do_register_user(attrs) do
     %User{}
     |> User.registration_changeset(attrs)
     |> Repo.insert()
@@ -322,7 +331,7 @@ defmodule Athena.Accounts do
   def get_user_by_reset_password_token(token) do
     with {:ok, query} <- UserToken.verify_email_token_query(token, "reset_password"),
          %User{} = user <- Repo.one(query) do
-      user
+      Repo.preload(user, [:student, :teacher])
     else
       _ -> nil
     end

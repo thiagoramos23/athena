@@ -563,6 +563,26 @@ defmodule AthenaWeb.CoreComponents do
     """
   end
 
+  attr :time, :integer
+
+  def time_formatted(assigns) do
+    time = assigns.time
+    hour = div(time, 60)
+    minutes = rem(time, 60)
+    formatted_hour = if hour < 10, do: "0#{hour}", else: "#{hour}"
+    formatted_minutes = if minutes < 10, do: "0#{minutes}", else: "#{minutes}"
+
+    assigns =
+      assigns
+      |> assign(formatted_time: "#{formatted_hour}:#{formatted_minutes}")
+
+    ~H"""
+    <div>
+      <%= @formatted_time %>
+    </div>
+    """
+  end
+
   ## JS Commands
 
   def show(js \\ %JS{}, selector) do

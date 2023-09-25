@@ -17,11 +17,13 @@ defmodule Athena.Education.StudentClass do
     timestamps()
   end
 
-  @required_fields [:time, :completed_at, :student_id, :class_id]
+  @required_fields [:time, :student_id, :class_id]
+  @valid_fields @required_fields ++ [:completed_at]
 
   def changeset(student_class, attrs) do
     student_class
-    |> cast(attrs, @required_fields)
+    |> cast(attrs, @valid_fields)
     |> validate_required(@required_fields)
+    |> unique_constraint([:student_id, :class_id])
   end
 end
