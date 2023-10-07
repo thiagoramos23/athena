@@ -29,6 +29,8 @@ end
     name: "Elixir in Action",
     description: "Good course on ELixlir",
     slug: "elixir-in-action",
+    cover_url:
+      "https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80",
     featured: true
   })
   |> Repo.insert()
@@ -39,6 +41,8 @@ end
     name: "iOS for The Kids",
     description: "Best iOS content for your kids to learn how to program",
     slug: "ios-for-the-kids",
+    cover_url:
+      "https://images.unsplash.com/photo-1508830524289-0adcbe822b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2025&q=80",
     featured: false
   })
   |> Repo.insert()
