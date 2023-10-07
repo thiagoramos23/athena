@@ -12,7 +12,7 @@ defmodule Athena.Education.StudentClass do
   schema "student_classes" do
     field(:time, :integer)
     field(:completed_at, :utc_datetime)
-    belongs_to :student, Athena.Accounts.Student
+    belongs_to :student, Athena.Education.Student
     belongs_to :class, Athena.Education.Class
     timestamps()
   end

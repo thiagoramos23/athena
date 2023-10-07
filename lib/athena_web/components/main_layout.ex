@@ -3,6 +3,8 @@ defmodule AthenaWeb.MainLayout do
   use Phoenix.Component
   use AthenaWeb, :html
 
+  alias AthenaWeb.MainLayout
+
   slot :inner_block, required: true
 
   def header(assigns) do
@@ -13,7 +15,9 @@ defmodule AthenaWeb.MainLayout do
           <div class="hidden lg:flex lg:gap-x-12">
             <a href="/" class="text-sm font-semibold text-white leading-6">Cursos em Destaque</a>
             <a href="/" class="text-sm font-semibold text-white leading-6">Cursos</a>
-            <a href="/" class="text-sm font-semibold text-white leading-6">Meus Cursos</a>
+            <div :if={!is_nil(@current_user)}>
+              <a href="/my-courses" class="text-sm font-semibold text-white leading-6">Meus Cursos</a>
+            </div>
           </div>
         </nav>
         <%= render_slot(@inner_block) %>
@@ -67,7 +71,34 @@ defmodule AthenaWeb.MainLayout do
     """
   end
 
+  attr :class, :string, default: nil
+
   def show_course(assigns) do
+    ~H"""
+    <.link navigate={~p"/courses/#{@course.slug}"}>
+      <div class="flex flex-col">
+        <div class={[
+          "block w-52 h-40 overflow-hidden bg-gray-100 rounded-lg outline-none",
+          @class
+        ]}>
+          <img
+            src={@course.cover_url}
+            alt=""
+            class="object-fill pointer-events-none group-hover:opacity-75"
+          />
+        </div>
+        <div class="mt-2 text-xl font-semibold text-white">
+          <%= @course.name %>
+        </div>
+        <div class="mt-2 font-normal text-white text-md">
+          <%= @course.description %>
+        </div>
+      </div>
+    </.link>
+    """
+  end
+
+  def show_course_with_classes(assigns) do
     ~H"""
     <div class="flex flex-col items-start mt-5 text-xl font-bold text-white antialised">
       <%= @course.name %>
@@ -75,6 +106,12 @@ defmodule AthenaWeb.MainLayout do
         <%= @course.description %>
       </span>
     </div>
+    <MainLayout.list_classes_for_course course={@course} />
+    """
+  end
+
+  def list_classes_for_course(assigns) do
+    ~H"""
     <div class="mt-12">
       <ul role="list" class="grid grid-cols-2 gap-y-8 sm:grid-cols-3 sm:gap-x-2 lg:grid-cols-3">
         <div :for={klass <- @course.classes}>

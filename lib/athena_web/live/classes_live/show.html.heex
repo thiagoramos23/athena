@@ -15,13 +15,13 @@
         <div class="flex justify-between">
           <%= @class.name %>
           <%= if @current_user do %>
-            <.button :if={@class.completed} class="ml-6 text-black bg-gray-800" disabled>
+            <.button :if={@class.completed} class="ml-6 bg-green-900 cursor-default">
               Aula completada
             </.button>
             <.button
               :if={not @class.completed}
-              class="ml-6 text-black bg-green-900"
-              phx-click="complete_class"
+              class="ml-6 text-black bg-green-600"
+              phx-click="toggle_complete_class"
             >
               Completar Aula
             </.button>
@@ -50,11 +50,17 @@
         <.link navigate={~p"/courses/#{@class.course.slug}/classes/#{class.slug}"}>
           <li class="flex justify-between flex-items">
             <div class="flex text-gray-500 flex-items">
-              <.icon :if={!@class.completed} name="hero-check-circle" class="mt-1 mr-4" />
               <.icon
-                :if={@class.completed}
+                :if={not class.completed}
                 name="hero-check-circle"
-                class="mt-1 mr-4 text-green-900"
+                class="mt-1 mr-4 text-gray-500"
+                phx-click="toggle_complete_class"
+              />
+              <.icon
+                :if={class.completed}
+                name="hero-check-circle"
+                class="mt-1 mr-4 text-green-500"
+                phx-click="toggle_complete_class"
               />
               <label class="mt-1 text-sm"><%= number %></label>
               <div class="ml-4 text-gray-200 text-md">

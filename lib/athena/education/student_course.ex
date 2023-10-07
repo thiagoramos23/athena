@@ -6,18 +6,16 @@ defmodule Athena.Education.StudentCourse do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "student_classes" do
-    field(:time, :integer)
-    field(:completed, :boolean, default: false)
-    belongs_to :student, Athena.Accounts.Student
-    belongs_to :class, Athena.Education.Class
+  schema "student_courses" do
+    belongs_to :student, Athena.Education.Student
+    belongs_to :course, Athena.Education.Course
     timestamps()
   end
 
-  @required_fields [:time, :completed, :student_id, :class_id]
+  @required_fields [:student_id, :course_id]
 
-  def changeset(student_class, attrs) do
-    student_class
+  def changeset(student_course, attrs) do
+    student_course
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
   end

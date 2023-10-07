@@ -6,6 +6,13 @@ defmodule Athena.Education.Finder.CourseFinder do
   alias Athena.Education.Queries.CourseQuery
   alias Athena.Repo
 
+  def get_course_by_slug(course_slug) do
+    CourseQuery.build()
+    |> CourseQuery.by_slug(course_slug)
+    |> Repo.one()
+    |> Repo.preload([:classes])
+  end
+
   def featured_course(opts \\ []) do
     preloads = Keyword.get(opts, :preload, [])
 
@@ -22,5 +29,12 @@ defmodule Athena.Education.Finder.CourseFinder do
     |> CourseQuery.not_featured_courses()
     |> Repo.all()
     |> Repo.preload(preloads)
+  end
+
+  def student_courses(student) do
+    CourseQuery.build()
+    |> CourseQuery.for_student(student)
+    |> Repo.all()
+    |> Repo.preload([:classes])
   end
 end

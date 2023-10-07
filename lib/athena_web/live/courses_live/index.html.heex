@@ -5,7 +5,7 @@
       Destaque
     </div>
   </div>
-  <MainLayout.show_course course={@featured_course} />
+  <MainLayout.show_course_with_classes course={@featured_course} />
   <div class="mt-10">
     <div class="font-sans font-bold text-blue-400">
       Cursos
@@ -13,7 +13,7 @@
   </div>
   <div class="mt-10">
     <div :for={course <- @courses}>
-      <MainLayout.show_course course={course} />
+      <MainLayout.show_course_with_classes course={course} />
     </div>
   </div>
 </div>

@@ -23,8 +23,14 @@ defmodule AthenaWeb.Router do
     live_session :public,
       on_mount: [{AthenaWeb.UserAuth, :mount_current_user}] do
       live "/", CoursesLive.Index, :index
+      live "/courses/:course_slug", CoursesLive.Show, :show
       live "/courses/:course_slug/classes/:class_slug", ClassesLive.Show, :show
       live "/checkout", CheckoutLive.Index, :index
+    end
+
+    live_session :require_user_authenticated,
+      on_mount: [{AthenaWeb.UserAuth, :ensure_authenticated}] do
+      live "/my-courses", MyCoursesLive.Index, :index
     end
   end
 

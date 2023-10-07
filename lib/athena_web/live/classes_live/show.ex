@@ -34,13 +34,23 @@ defmodule AthenaWeb.ClassesLive.Show do
     end
   end
 
-  def handle_event("complete_class", _params, socket) do
-    if socket.assigns.student do
-      Education.complete_class(socket.assigns.class, socket.assigns.student)
-      {:noreply, socket |> put_flash(:info, "Aula completada com Sucesso!")}
-    else
+  def handle_event(
+        "toggle_complete_class",
+        _,
+        %{assigns: %{student: student, class: class}} = socket
+      )
+      when is_struct(student) do
+    if class.completed do
+      Education.drop_class(class, student)
       {:noreply, socket}
+    else
+      Education.complete_class(class, student)
+      {:noreply, socket |> put_flash(:info, "Aula completada com Sucesso!")}
     end
+  end
+
+  def handle_event("toggle_complete_class", _params, socket) do
+    {:noreply, socket}
   end
 
   defp maybe_associate_student_to_class(nil, _class), do: {:ok, nil}

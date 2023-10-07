@@ -24,4 +24,10 @@ defmodule Athena.Education.Queries.CourseQuery do
     query
     |> where([course: course], course.featured == false)
   end
+
+  def for_student(query, student) do
+    query
+    |> join(:inner, [course], students in assoc(course, :students), as: :students)
+    |> where([students: students], students.id == ^student.id)
+  end
 end
