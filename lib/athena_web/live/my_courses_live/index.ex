@@ -16,9 +16,9 @@ defmodule AthenaWeb.MyCoursesLive.Index do
           Meus Cursos
         </div>
       </div>
-      <div class="mt-10 md:flex md:flex-row md:space-x-8">
+      <div class="mt-10 md:flex md:space-x-8">
         <div :for={course <- @my_courses}>
-          <MainLayout.show_course course={course} class="w-20 h-4" />
+          <MainLayout.show_course course={course} />
         </div>
       </div>
     </div>

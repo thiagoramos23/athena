@@ -13,7 +13,6 @@ defmodule AthenaWeb.MainLayout do
       <div class="flex justify-between">
         <nav class="flex items-center justify-center p-6 lg:px-8" aria-label="Global">
           <div class="hidden lg:flex lg:gap-x-12">
-            <a href="/" class="text-sm font-semibold text-white leading-6">Cursos em Destaque</a>
             <a href="/" class="text-sm font-semibold text-white leading-6">Cursos</a>
             <div :if={!is_nil(@current_user)}>
               <a href="/my-courses" class="text-sm font-semibold text-white leading-6">Meus Cursos</a>
@@ -23,7 +22,7 @@ defmodule AthenaWeb.MainLayout do
         <%= render_slot(@inner_block) %>
       </div>
       <!-- Mobile menu, show/hide based on menu open state. -->
-      <div class="lg:hidden" role="dialog" aria-modal="true">
+      <%!-- <div class="lg:hidden" role="dialog" aria-modal="true">
         <!-- Background backdrop, show/hide based on slide-over state. -->
         <div class="fixed inset-0 z-50"></div>
         <div class="fixed inset-y-0 right-0 z-50 w-full px-6 py-6 overflow-y-auto bg-gray-900 sm:max-w-sm sm:ring-1 sm:ring-white/10">
@@ -48,7 +47,7 @@ defmodule AthenaWeb.MainLayout do
             </div>
           </div>
         </div>
-      </div>
+      </div> --%>
     </header>
     """
   end
@@ -62,7 +61,7 @@ defmodule AthenaWeb.MainLayout do
             Aprenda a Construir Aplicações Íncriveis com
             <span class="font-bold">Elixir and LiveView</span>
           </h2>
-          <p class="mt-2 text-left text-gray-300 text-md ">
+          <p class="mt-2 text-left text-gray-300 text-md font-light">
             Um jeito novo de aprender, mão na massa e divertido. Aprenda a criar aplicações incríveis codando junto comigo e se divertindo no processo.
           </p>
         </div>
@@ -76,15 +75,15 @@ defmodule AthenaWeb.MainLayout do
   def show_course(assigns) do
     ~H"""
     <.link navigate={~p"/courses/#{@course.slug}"}>
-      <div class="flex flex-col">
+      <div class="flex flex-col md:w-60">
         <div class={[
-          "block w-52 h-40 overflow-hidden bg-gray-100 rounded-lg outline-none",
+          "h-48 overflow-hidden bg-gray-100 rounded-lg outline-none aspect-h-1 aspect-w-2",
           @class
         ]}>
           <img
             src={@course.cover_url}
             alt=""
-            class="object-fill pointer-events-none group-hover:opacity-75"
+            class="object-cover pointer-events-none group-hover:opacity-75"
           />
         </div>
         <div class="mt-2 text-xl font-semibold text-white">
@@ -113,11 +112,11 @@ defmodule AthenaWeb.MainLayout do
   def list_classes_for_course(assigns) do
     ~H"""
     <div class="mt-12">
-      <ul role="list" class="grid grid-cols-2 gap-y-8 sm:grid-cols-3 sm:gap-x-2 lg:grid-cols-3">
-        <div :for={klass <- @course.classes}>
+      <ul role="list" class="grid md:grid-cols-4 md:gap-y-9 sm:grid-cols-4 sm:gap-x-2 lg:grid-cols-3">
+        <div class="w-[95%]" :for={klass <- @course.classes}>
           <.link id={klass.slug} navigate={~p"/courses/#{@course.slug}/classes/#{klass.slug}"}>
-            <li class="relative">
-              <div class="block w-3/4 h-20 overflow-hidden bg-gray-100 rounded-lg outline-none group aspect-h-1 aspect-w-2">
+            <li class="pt-4 md:pt-0">
+              <div class="block sm:mt-2 overflow-hidden bg-gray-100 rounded-lg outline-none group aspect-h-1 aspect-w-2">
                 <img
                   src={klass.thumbnail_url}
                   alt=""
@@ -127,8 +126,7 @@ defmodule AthenaWeb.MainLayout do
                   <span class="sr-only"><%= klass.name %></span>
                 </button>
               </div>
-              <p class="block mt-3 text-sm font-medium text-white truncate pointer-events-none">
-                <%= klass.name %>
+              <div class="mt-2">
                 <div
                   :if={klass.state == :public}
                   class="w-10 px-1.5 py-0.5 text-sm font-medium text-white bg-gradient-to-r from-green-500 to-green-800 rounded rounded-lg"
@@ -147,8 +145,12 @@ defmodule AthenaWeb.MainLayout do
                 >
                   Pro
                 </div>
+              </div>
+
+              <p class="block mt-3 text-sm font-medium text-white truncate pointer-events-none">
+                <%= klass.name %>
               </p>
-              <p class="block mt-2 text-sm font-medium text-gray-500 pointer-events-none">
+              <p class="mt-1 text-sm font-light text-gray-300 pointer-events-none">
                 <%= klass.summary %>
               </p>
             </li>

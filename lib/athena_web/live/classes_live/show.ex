@@ -17,7 +17,7 @@ defmodule AthenaWeb.ClassesLive.Show do
       :ok,
       socket
       |> assign(:student, student)
-      |> assign(:classes, classes)
+      |> stream(:classes, classes)
       |> assign(:class, class)
       |> assign(:total_class_count, length(classes))
     }
@@ -42,10 +42,20 @@ defmodule AthenaWeb.ClassesLive.Show do
       when is_struct(student) do
     if class.completed do
       Education.drop_class(class, student)
-      {:noreply, socket}
+      class = %{class | completed: false}
+
+      {:noreply,
+       socket
+       |> assign(:class, class)
+       |> stream_insert(:classes, class)}
     else
       Education.complete_class(class, student)
-      {:noreply, socket |> put_flash(:info, "Aula completada com Sucesso!")}
+      class = %{class | completed: true}
+
+      {:noreply,
+       socket
+       |> assign(:class, class)
+       |> stream_insert(:classes, class)}
     end
   end
 

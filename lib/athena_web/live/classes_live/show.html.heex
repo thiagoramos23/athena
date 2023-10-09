@@ -9,13 +9,13 @@
       />
     </div>
   </div>
-  <div class="flex justify-between max-w-6xl mx-auto mt-12 flex-items">
-    <div class="flex flex-col justify-start w-3/5 flex-items">
+  <div class="flex justify-between md:max-w-6xl mx-auto mt-12 flex-items">
+    <div class="flex flex-col justify-start md:w-3/5 flex-items">
       <div class="flex flex-col items-start text-3xl antialiased font-semibold flex-items">
         <div class="flex justify-between">
           <%= @class.name %>
           <%= if @current_user do %>
-            <.button :if={@class.completed} class="ml-6 bg-green-900 cursor-default">
+            <.button :if={@class.completed} class="ml-6 bg-green-900 cursor-default" phx-click="toggle_complete_class">
               Aula completada
             </.button>
             <.button
@@ -36,43 +36,38 @@
       </div>
     </div>
 
-    <div class="flex flex-col items-start w-2/5 ml-16 flex-items">
-      <div class="flex flex-col mb-4 font-semibold flex-items text-md">
+    <div class="hidden md:block flex flex-col items-start w-2/5 ml-16 flex-items">
+      <div class="flex flex-row mb-4 font-semibold text-md">
         <%= @class.course.name %>
-        <span class="pl-4 text-sm font-normal text-gray-500">
-          <%= @total_class_count %> lessons - 2:29:34
+        <span class="text-sm pt-0.5 pl-4 font-normal text-gray-500">
+          <%= @total_class_count %> lessons
         </span>
       </div>
-      <ul
-        :for={{class, number} <- Enum.with_index(@classes, 1)}
-        class="flex flex-col justify-between w-full px-3 py-2 rounded hover:bg-gray-800/50 flex-items"
-      >
-        <.link navigate={~p"/courses/#{@class.course.slug}/classes/#{class.slug}"}>
-          <li class="flex justify-between flex-items">
-            <div class="flex text-gray-500 flex-items">
+      <div id="list_classes" class="flex flex-col justify-between px-3 py-2 rounded" phx-update="stream">
+        <div id={class_id}
+          :for={{class_id, class} <- @streams.classes}>
+          <.link navigate={~p"/courses/#{@class.course.slug}/classes/#{class.slug}"}>
+            <div class="flex text-gray-500 flex-items mb-2 p-1 hover:bg-gray-800/50">
               <.icon
                 :if={not class.completed}
                 name="hero-check-circle"
                 class="mt-1 mr-4 text-gray-500"
-                phx-click="toggle_complete_class"
               />
               <.icon
                 :if={class.completed}
                 name="hero-check-circle"
                 class="mt-1 mr-4 text-green-500"
-                phx-click="toggle_complete_class"
               />
-              <label class="mt-1 text-sm"><%= number %></label>
-              <div class="ml-4 text-gray-200 text-md">
+              <div class="text-gray-200 text-md">
                 <%= class.name %>
               </div>
+              <div class="text-sm text-gray-500 pl-8">
+                <.time_formatted time={class.class_length} />
+              </div>
             </div>
-            <div class="text-sm text-gray-500">
-              <.time_formatted time={class.class_length} />
-            </div>
-          </li>
-        </.link>
-      </ul>
+          </.link>
+        </div>
+      </div>
     </div>
   </div>
 </div>
