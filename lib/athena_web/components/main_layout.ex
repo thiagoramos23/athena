@@ -10,16 +10,21 @@ defmodule AthenaWeb.MainLayout do
   def header(assigns) do
     ~H"""
     <header class="mx-auto bg-transparent">
-      <div class="flex justify-between">
-        <nav class="flex items-center justify-center p-6 lg:px-8" aria-label="Global">
+      <div class="flex">
+        <nav class="flex flex-row flex-auto p-6 lg:px-8" aria-label="Global">
           <div class="hidden lg:flex lg:gap-x-12">
             <a href="/" class="text-sm font-semibold text-white leading-6">Cursos</a>
             <div :if={!is_nil(@current_user)}>
               <a href="/my-courses" class="text-sm font-semibold text-white leading-6">Meus Cursos</a>
             </div>
           </div>
+          <div :if={!is_nil(@current_user) && is_nil(@current_user.teacher)} class="hidden lg:flex ml-auto">
+            <a href="/become-teacher" class="text-sm font-semibold text-white leading-6 bg-green-600 p-2 rounded-md">Se torne um professor</a>
+          </div>
         </nav>
-        <%= render_slot(@inner_block) %>
+        <div class="mt-2">
+          <%= render_slot(@inner_block) %>
+        </div>
       </div>
       <!-- Mobile menu, show/hide based on menu open state. -->
       <%!-- <div class="lg:hidden" role="dialog" aria-modal="true">

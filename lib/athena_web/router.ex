@@ -31,6 +31,7 @@ defmodule AthenaWeb.Router do
     live_session :require_user_authenticated,
       on_mount: [{AthenaWeb.UserAuth, :ensure_authenticated}] do
       live "/my-courses", MyCoursesLive.Index, :index
+      live "/become-teacher", TeacherLive.Index, :index
     end
   end
 

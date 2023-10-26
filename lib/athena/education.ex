@@ -13,6 +13,7 @@ defmodule Athena.Education do
   alias Athena.Education.Student
   alias Athena.Education.StudentClass
   alias Athena.Education.StudentCourse
+  alias Athena.Education.Teacher
   alias Athena.Repo
 
   defdelegate featured_course(opts), to: CourseFinder
@@ -101,6 +102,17 @@ defmodule Athena.Education do
           class
       end
     end)
+  end
+
+  def create_teacher(params) do
+    %Teacher{}
+    |> Teacher.changeset(params)
+    |> Repo.insert()
+  end
+
+  def change_teacher(teacher, attrs \\ %{}) do
+    teacher
+    |> Teacher.changeset(attrs)
   end
 
   defp get_student_classes(classes_id, student_id) do

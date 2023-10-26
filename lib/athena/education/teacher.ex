@@ -9,16 +9,18 @@ defmodule Athena.Education.Teacher do
 
   schema "teachers" do
     field(:state, Ecto.Enum, values: [:active, :inactive], default: :active)
+    field(:name, :string)
+    field(:email, :string)
     belongs_to :user, Athena.Accounts.User
     many_to_many :courses, Athena.Education.Course, join_through: Athena.Education.TeacherCourse
 
     timestamps()
   end
 
-  @required_fields [:state, :user_id]
+  @required_fields [:state, :user_id, :name, :email]
 
-  def changeset(course, attrs) do
-    course
+  def changeset(teacher, attrs) do
+    teacher
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
   end
