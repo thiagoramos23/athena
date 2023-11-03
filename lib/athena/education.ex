@@ -8,6 +8,7 @@ defmodule Athena.Education do
 
   alias Athena.Accounts.User
   alias Athena.Education.Class
+  alias Athena.Education.Course
   alias Athena.Education.Finder.CourseFinder
   alias Athena.Education.Finder.ClassFinder
   alias Athena.Education.Student
@@ -113,6 +114,29 @@ defmodule Athena.Education do
   def change_teacher(teacher, attrs \\ %{}) do
     teacher
     |> Teacher.changeset(attrs)
+  end
+
+  def create_course(params) do
+    %Course{}
+    |> Course.changeset(params)
+    |> Repo.insert()
+  end
+
+  def change_course(course, attrs \\ %{}) do
+    course
+    |> Course.changeset(attrs)
+  end
+
+  def get_teacher_courses(teacher_id) do
+    query =
+      from course in Course,
+        join: teachers in assoc(course, :teachers),
+        where: teachers.id == ^teacher_id,
+        preload: [
+          :teachers
+        ]
+
+    Repo.all(query)
   end
 
   defp get_student_classes(classes_id, student_id) do

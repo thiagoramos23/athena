@@ -1,8 +1,8 @@
-defmodule AthenaWeb.Teachers.TeacherLive.FormComponent do
+defmodule AthenaWeb.Teachers.CourseLIve.FormComponent do
   use AthenaWeb, :live_component
 
   alias Athena.Education
-  alias Athena.Education.Teacher
+  alias Athena.Education.Course
 
   def render(assigns) do
     ~H"""
@@ -34,26 +34,25 @@ defmodule AthenaWeb.Teachers.TeacherLive.FormComponent do
       :ok,
       socket
       |> assign(assigns)
-      |> assign_teacher()
       |> clear_form()
     }
   end
 
-  def handle_event("validate", %{"teacher" => teacher_params}, socket) do
-    params = params_with_user_id(teacher_params, socket)
-    changeset = validate_teacher(socket, params)
+  def handle_event("validate", %{"course" => course_params}, socket) do
+    params = params_with_teacher_id(course_params, socket)
+    changeset = validate_course(socket, params)
     {:noreply, assign_form(socket, changeset)}
   end
 
-  def handle_event("save", %{"teacher" => teacher_params}, socket) do
-    params = params_with_user_id(teacher_params, socket)
-    {:noreply, save_teacher(socket, params)}
+  def handle_event("save", %{"course" => course_params}, socket) do
+    params = params_with_teacher_id(course_params, socket)
+    {:noreply, save_course(socket, params)}
   end
 
-  defp save_teacher(socket, params) do
-    case Education.create_teacher(params) do
-      {:ok, teacher} ->
-        send(self(), {:created_teacher, teacher})
+  defp save_course(socket, params) do
+    case Education.create_course(params) do
+      {:ok, course} ->
+        send(self(), {:created_course, course})
         socket
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -61,29 +60,29 @@ defmodule AthenaWeb.Teachers.TeacherLive.FormComponent do
     end
   end
 
-  defp assign_teacher(%{assigns: %{current_user: current_user}} = socket) do
-    assign(socket, :teacher, %Teacher{user_id: current_user.id})
-  end
-
-  defp clear_form(%{assigns: %{teacher: teacher}} = socket) do
-    assign_form(socket, Education.change_teacher(teacher))
+  defp clear_form(%{assigns: %{course: course}} = socket) do
+    assign_form(socket, change_course(course))
   end
 
   defp clear_form(socket) do
-    assign_form(socket, Education.change_teacher(%Teacher{}))
+    assign_form(socket, change_course(%Course{}))
   end
 
   defp assign_form(socket, changeset) do
     assign(socket, :form, to_form(changeset))
   end
 
-  defp validate_teacher(socket, teacher_params) do
-    socket.assigns.teacher
-    |> Education.change_teacher(teacher_params)
+  defp validate_course(socket, course_params) do
+    socket.assigns.course
+    |> change_course(course_params)
     |> Map.put(:action, :validate)
   end
 
-  defp params_with_user_id(teacher_params, %{assigns: %{current_user: current_user}}) do
-    Map.put(teacher_params, "user_id", current_user.id)
+  defp change_course(course, params \\ %{}) do
+    Education.change_course(course, params)
+  end
+
+  defp params_with_teacher_id(course_params, %{assigns: %{teacher: teacher}}) do
+    Map.put(course_params, "teacher_id", teacher.id)
   end
 end

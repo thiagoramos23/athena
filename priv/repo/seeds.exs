@@ -10,6 +10,7 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
+alias Athena.Education
 alias Athena.Education.Course
 alias Athena.Education.Class
 alias Athena.Repo
@@ -20,8 +21,19 @@ defmodule Checks do
   end
 end
 
-{:ok, _user} =
+{:ok, user} =
   Athena.Accounts.register_user(%{email: "thiago@thiago.com", password: "123123123123"})
+
+{:ok, teacher} =
+  Athena.Education.create_teacher(%{name: "Thiago", email: "thiago@thiago.com", user_id: user.id})
+
+{:ok, _permission} =
+  %Athena.Security.Permission{}
+  |> Athena.Security.Permission.changeset(%{
+    user_id: user.id,
+    name: "admin"
+  })
+  |> Repo.insert()
 
 {:ok, featured_course} =
   %Course{}
@@ -31,7 +43,8 @@ end
     slug: "elixir-in-action",
     cover_url:
       "https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80",
-    featured: true
+    featured: true,
+    teacher_id: teacher.id
   })
   |> Repo.insert()
 
@@ -43,7 +56,8 @@ end
     slug: "ios-for-the-kids",
     cover_url:
       "https://images.unsplash.com/photo-1508830524289-0adcbe822b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2025&q=80",
-    featured: false
+    featured: false,
+    teacher_id: teacher.id
   })
   |> Repo.insert()
 
@@ -55,7 +69,8 @@ end
     slug: "rust-to-save-the-world",
     cover_url:
       "https://images.unsplash.com/photo-1508830524289-0adcbe822b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2025&q=80",
-    featured: false
+    featured: false,
+    teacher_id: teacher.id
   })
   |> Repo.insert()
 

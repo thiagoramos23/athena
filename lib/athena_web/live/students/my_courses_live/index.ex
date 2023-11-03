@@ -1,4 +1,4 @@
-defmodule AthenaWeb.MyCoursesLive.Index do
+defmodule AthenaWeb.Students.MyCoursesLive.Index do
   use AthenaWeb, :live_view
   alias AthenaWeb.MainLayout
   alias Athena.Education

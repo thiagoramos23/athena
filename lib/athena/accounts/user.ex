@@ -10,6 +10,7 @@ defmodule Athena.Accounts.User do
 
     has_one :student, Athena.Education.Student
     has_one :teacher, Athena.Education.Teacher
+    has_many :permissions, Athena.Security.Permission
 
     timestamps()
   end
@@ -155,6 +156,10 @@ defmodule Athena.Accounts.User do
     else
       add_error(changeset, :current_password, "is not valid")
     end
+  end
+
+  def admin?(user) do
+    Enum.any?(user.permissions, &Athena.Security.Permission.admin_permission?/1)
   end
 
   def student?(nil), do: false

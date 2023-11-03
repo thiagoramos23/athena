@@ -1,4 +1,4 @@
-defmodule Athena.Repo.Migrations.CreateStuddentCourses do
+defmodule Athena.Repo.Migrations.CreateStudentCourses do
   use Ecto.Migration
 
   def change do

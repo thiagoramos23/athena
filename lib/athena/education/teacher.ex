@@ -12,7 +12,8 @@ defmodule Athena.Education.Teacher do
     field(:name, :string)
     field(:email, :string)
     belongs_to :user, Athena.Accounts.User
-    many_to_many :courses, Athena.Education.Course, join_through: Athena.Education.TeacherCourse
+
+    has_many(:courses, Athena.Education.Course)
 
     timestamps()
   end
@@ -22,6 +23,7 @@ defmodule Athena.Education.Teacher do
   def changeset(teacher, attrs) do
     teacher
     |> cast(attrs, @required_fields)
+    |> unique_constraint([:email])
     |> validate_required(@required_fields)
   end
 end

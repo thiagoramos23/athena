@@ -50,7 +50,7 @@ defmodule AthenaWeb.CoreComponents do
       data-cancel={JS.exec(@on_cancel, "phx-remove")}
       class="relative z-50 hidden"
     >
-      <div id={"#{@id}-bg"} class="fixed inset-0 bg-zinc-50/90 transition-opacity" aria-hidden="true" />
+      <div id={"#{@id}-bg"} class="fixed inset-0 bg-gray-400 transition-opacity" aria-hidden="true" />
       <div
         class="fixed inset-0 overflow-y-auto"
         aria-labelledby={"#{@id}-title"}
@@ -66,7 +66,7 @@ defmodule AthenaWeb.CoreComponents do
               phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
               phx-key="escape"
               phx-click-away={JS.exec("data-cancel", to: "##{@id}")}
-              class="relative hidden bg-white shadow-lg shadow-zinc-700/10 ring-zinc-700/10 rounded-2xl p-14 ring-1 transition"
+              class="relative hidden bg-gray-800 shadow-lg shadow-zinc-700/10 ring-zinc-700/10 rounded-2xl p-14 ring-1 transition"
             >
               <div class="absolute top-6 right-5">
                 <button
@@ -75,7 +75,7 @@ defmodule AthenaWeb.CoreComponents do
                   class="flex-none p-3 -m-3 opacity-20 hover:opacity-40"
                   aria-label={gettext("close")}
                 >
-                  <.icon name="hero-x-mark-solid" class="w-5 h-5" />
+                  <.icon name="hero-x-mark-solid" class="w-8 h-8 bg-white" />
                 </button>
               </div>
               <div id={"#{@id}-content"}>

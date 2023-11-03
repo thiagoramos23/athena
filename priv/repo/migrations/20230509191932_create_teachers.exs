@@ -13,6 +13,6 @@ defmodule Athena.Repo.Migrations.CreateTeachers do
 
     create index(:teachers, [:user_id])
     create index(:teachers, [:state])
-    create index(:teachers, [:email])
+    create unique_index(:teachers, [:email])
   end
 end

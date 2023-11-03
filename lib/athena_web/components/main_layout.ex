@@ -18,8 +18,11 @@ defmodule AthenaWeb.MainLayout do
               <a href="/my-courses" class="text-sm font-semibold text-white leading-6">Meus Cursos</a>
             </div>
           </div>
-          <div :if={!is_nil(@current_user) && is_nil(@current_user.teacher)} class="hidden lg:flex ml-auto">
-            <a href="/become-teacher" class="text-sm font-semibold text-white leading-6 bg-green-600 p-2 rounded-md">Se torne um professor</a>
+          <div :if={can_become_teacher(@current_user)} class="hidden lg:flex ml-auto">
+            <a href="/teachers/new" class="text-sm font-semibold text-white leading-6 bg-green-600 p-2 rounded-md">Se torne um professor</a>
+          </div>
+          <div :if={can_access_teacher_panel(@current_user)} class="hidden lg:flex ml-auto">
+            <a href="/teachers" class="text-sm font-semibold text-white leading-6 bg-green-600 p-2 rounded-md">Acesse a plataforma de ensino</a>
           </div>
         </nav>
         <div class="mt-2">
@@ -228,5 +231,13 @@ defmodule AthenaWeb.MainLayout do
       </div>
     </footer>
     """
+  end
+
+  defp can_become_teacher(current_user) do
+    current_user && Athena.Accounts.user_admin?(current_user) && is_nil(current_user.teacher)
+  end
+
+  defp can_access_teacher_panel(current_user) do
+    !is_nil(current_user.teacher) && Athena.Accounts.user_admin?(current_user)
   end
 end

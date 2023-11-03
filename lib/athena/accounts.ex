@@ -23,7 +23,7 @@ defmodule Athena.Accounts do
 
   """
   def get_user_by_email(email) when is_binary(email) do
-    Repo.get_by(User, email: email) |> Repo.preload([:student, :teacher])
+    Repo.get_by(User, email: email) |> Repo.preload([:student, :teacher, :permissions])
   end
 
   @doc """
@@ -40,7 +40,7 @@ defmodule Athena.Accounts do
   """
   def get_user_by_email_and_password(email, password)
       when is_binary(email) and is_binary(password) do
-    user = Repo.get_by(User, email: email) |> Repo.preload([:student, :teacher])
+    user = Repo.get_by(User, email: email) |> Repo.preload([:student, :teacher, :permissions])
     if User.valid_password?(user, password), do: user
   end
 
@@ -224,6 +224,15 @@ defmodule Athena.Accounts do
     end
   end
 
+  @doc """
+  Checks if the user has admin permission
+  ## Examples
+
+      iex> user_admin?(user)
+      true
+  """
+  def user_admin?(user), do: User.admin?(user)
+
   ## Session
 
   @doc """
@@ -240,7 +249,7 @@ defmodule Athena.Accounts do
   """
   def get_user_by_session_token(token) do
     {:ok, query} = UserToken.verify_session_token_query(token)
-    Repo.one(query) |> Repo.preload([:student, :teacher])
+    Repo.one(query) |> Repo.preload([:student, :teacher, :permissions])
   end
 
   @doc """
@@ -331,7 +340,7 @@ defmodule Athena.Accounts do
   def get_user_by_reset_password_token(token) do
     with {:ok, query} <- UserToken.verify_email_token_query(token, "reset_password"),
          %User{} = user <- Repo.one(query) do
-      Repo.preload(user, [:student, :teacher])
+      Repo.preload(user, [:student, :teacher, :permissions])
     else
       _ -> nil
     end
