@@ -74,10 +74,36 @@ end
   })
   |> Repo.insert()
 
+{:ok, fourth_course} =
+  %Course{}
+  |> Course.changeset(%{
+    name: "Rust is the new kid on the block",
+    description: "Best Rust course you will ever encounter in your entire life",
+    slug: "test-grid",
+    cover_url:
+      "https://images.unsplash.com/photo-1508830524289-0adcbe822b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2025&q=80",
+    featured: false,
+    teacher_id: teacher.id
+  })
+  |> Repo.insert()
+
+{:ok, fifth_course} =
+  %Course{}
+  |> Course.changeset(%{
+    name: "Rust is the new kid on the block",
+    description: "Best Rust course you will ever encounter in your entire life",
+    slug: "test-grid-again",
+    cover_url:
+      "https://images.unsplash.com/photo-1508830524289-0adcbe822b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2025&q=80",
+    featured: false,
+    teacher_id: teacher.id
+  })
+  |> Repo.insert()
+
 class_description = Earmark.as_html!(File.read!("priv/static/example.md"))
 
 for i <- 0..5,
-    course <- [featured_course, normal_course, another_course] do
+    course <- [featured_course, normal_course, another_course, fourth_course, fifth_course] do
   %Class{}
   |> Class.changeset(%{
     name: "How to start with elixir #{i}",

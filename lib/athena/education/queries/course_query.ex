@@ -7,7 +7,8 @@ defmodule Athena.Education.Queries.CourseQuery do
 
   def build do
     from course in Course,
-      as: :course
+      as: :course,
+      order_by: [asc: course.id]
   end
 
   def by_slug(query, slug) do

@@ -5,17 +5,14 @@ defmodule AthenaWeb.Components.CardComponent do
   def course(assigns) do
     ~H"""
     <.link id={@course.slug} navigate={@course_url}>
-    	<div class="group relative">
-    		<div class="h-56 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-72 xl:h-80">
+    	<div class="group">
+    		<div class="h-64 w-full overflow-hidden rounded-lg bg-gray-200 group-hover:opacity-75">
     			<img src={@course.cover_url} alt={@course.description} class="h-full w-full object-cover object-center">
     		</div>
-    		<h3 class="mt-4 text-sm text-gray-700">
-    			<a href="#">
-    				<span class="absolute inset-0"></span>
-    				<%= @course.name %>
-    			</a>
-    		</h3>
-    		<p class="mt-1 text-sm text-gray-500"><%= @course.description %></p>
+    		<h2 class="mt-4 text-lg text-white">
+    			<%= @course.name %>
+    		</h2>
+    		<p class="mt-1 text-md font-light text-gray-100"><%= @course.description %></p>
     	</div>
     </.link>
     """

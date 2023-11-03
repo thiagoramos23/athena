@@ -9,6 +9,7 @@ defmodule Athena.Education.Finder.ClassFinder do
   def call(opts \\ []) do
     build_query()
     |> filter(opts)
+    |> order_by([class], asc: class.id, asc: class.inserted_at)
     |> Repo.all()
   end
 

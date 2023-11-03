@@ -14,13 +14,15 @@ defmodule AthenaWeb.Teachers.CourseLIve.FormComponent do
         </p>
         <.simple_form for={@form} id={@id} phx-submit="save" phx-change="validate" phx-target={@myself}>
           <.input field={@form[:name]} type="text" placeholder="Nome" label="Nome" required />
-          <.input field={@form[:email]} type="email" placeholder="Email" label="Email" required />
+          <.input field={@form[:description]} type="text" placeholder="Descrição" label="Descrição" required />
+          <.input field={@form[:cover_url]} type="text" placeholder="Imagem de Capa" label="Imagem de Capa" required />
+          <.input field={@form[:featured]} type="checkbox" label="Em destaque?" required />
           <:actions>
             <.button
               phx-disable-with="Criando..."
               class="bg-green-600 border border-green-700 rounded-md p-2"
             >
-              Quero me tornar um professor
+              Criar curso
             </.button>
           </:actions>
         </.simple_form>
@@ -39,13 +41,13 @@ defmodule AthenaWeb.Teachers.CourseLIve.FormComponent do
   end
 
   def handle_event("validate", %{"course" => course_params}, socket) do
-    params = params_with_teacher_id(course_params, socket)
+    params = merge_params(course_params, socket)
     changeset = validate_course(socket, params)
     {:noreply, assign_form(socket, changeset)}
   end
 
   def handle_event("save", %{"course" => course_params}, socket) do
-    params = params_with_teacher_id(course_params, socket)
+    params = merge_params(course_params, socket)
     {:noreply, save_course(socket, params)}
   end
 
@@ -82,7 +84,8 @@ defmodule AthenaWeb.Teachers.CourseLIve.FormComponent do
     Education.change_course(course, params)
   end
 
-  defp params_with_teacher_id(course_params, %{assigns: %{teacher: teacher}}) do
-    Map.put(course_params, "teacher_id", teacher.id)
+  defp merge_params(course_params, %{assigns: %{teacher: teacher}}) do
+    slug = Athena.Common.Slugify.call(course_params["name"])
+    Map.merge(course_params, %{"teacher_id" => teacher.id, "slug" => slug})
   end
 end

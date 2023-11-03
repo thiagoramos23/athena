@@ -34,9 +34,9 @@ defmodule AthenaWeb.Router do
       live "/teachers/new", Teachers.TeacherLive.Index, :new
       live "/teachers", Teachers.TeacherLive.Index, :index
 
-      live "/teachers/courses", Teachers.CourseLive.Index, :index
-      live "/teachers/courses/:course_slug", Teachers.CourseLive.Show, :show
       live "/teachers/courses/new", Teachers.CourseLive.Index, :new
+      live "/teachers/courses/:course_slug", Teachers.CourseLive.Show, :show
+      live "/teachers/courses", Teachers.CourseLive.Index, :index
     end
   end
 

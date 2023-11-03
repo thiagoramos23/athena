@@ -17,10 +17,22 @@ defmodule Athena.Education do
   alias Athena.Education.Teacher
   alias Athena.Repo
 
-  defdelegate featured_course(opts), to: CourseFinder
-  defdelegate not_featured_courses(opts), to: CourseFinder
   defdelegate student_courses(student), to: CourseFinder
   defdelegate get_course_by_slug(course_slug), to: CourseFinder
+
+  def featured_course(opts) do
+    featured_course = CourseFinder.featured_course(opts)
+    classes = Enum.sort_by(featured_course.classes, & &1.id)
+    %{featured_course | classes: classes}
+  end
+
+  def not_featured_courses(opts) do
+    CourseFinder.not_featured_courses(opts)
+    |> Enum.map(fn course ->
+      classes = Enum.sort_by(course.classes, & &1.id)
+      %{course | classes: classes}
+    end)
+  end
 
   def create_student(attrs) do
     %Student{}
@@ -130,10 +142,9 @@ defmodule Athena.Education do
   def get_teacher_courses(teacher_id) do
     query =
       from course in Course,
-        join: teachers in assoc(course, :teachers),
-        where: teachers.id == ^teacher_id,
+        where: course.teacher_id == ^teacher_id,
         preload: [
-          :teachers
+          :teacher
         ]
 
     Repo.all(query)

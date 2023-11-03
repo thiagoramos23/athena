@@ -49,11 +49,9 @@ defmodule AthenaWeb.Teachers.TeacherLive.Index do
 
   def render(assigns) do
     ~H"""
-    <%= if @show_modal do %>
-      <.modal id="create_teacher_modal">
-        <.live_component module={FormComponent} id="create_teacher" current_user={@current_user} />
-      </.modal>
-    <% end %>
+    <.modal id="create_teacher_modal" show={@show_modal}>
+      <.live_component module={FormComponent} id="create_teacher" current_user={@current_user} />
+    </.modal>
     """
   end
 end

@@ -238,6 +238,6 @@ defmodule AthenaWeb.MainLayout do
   end
 
   defp can_access_teacher_panel(current_user) do
-    !is_nil(current_user.teacher) && Athena.Accounts.user_admin?(current_user)
+    current_user && !is_nil(current_user.teacher) && Athena.Accounts.user_admin?(current_user)
   end
 end

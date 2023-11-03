@@ -2,7 +2,9 @@ defmodule AthenaWeb.Teachers.CourseLive.Index do
   use AthenaWeb, :live_view
 
   alias Athena.Education
+  alias Athena.Education.Course
   alias AthenaWeb.Components.CardComponent
+  alias AthenaWeb.Teachers.CourseLIve.FormComponent
 
   def mount(_params, _session, socket) do
     current_user = socket.assigns.current_user
@@ -12,7 +14,6 @@ defmodule AthenaWeb.Teachers.CourseLive.Index do
         socket
         |> assign(:teacher, current_user.teacher)
         |> assign(:courses, teacher_courses(current_user.teacher))
-        |> assign(:show_modal, false)
       else
         socket
         |> push_navigate(~p"/")
@@ -25,11 +26,26 @@ defmodule AthenaWeb.Teachers.CourseLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :index, _params), do: socket
+  def handle_info({:created_course, course}, socket) do
+    {:noreply, handle_course_created(course, socket)}
+  end
+
+  defp handle_course_created(course, socket) do
+    socket
+    |> put_flash(:info, "Curso criado com sucesso!")
+    |> assign(:course, course)
+    |> assign(:current_user, socket.assigns.current_user)
+    |> push_navigate(to: ~p"/teachers/courses/#{course.slug}")
+  end
+
+  defp apply_action(socket, :index, _params) do
+    socket |> assign(:show_modal, false)
+  end
 
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:show_modal, true)
+    |> assign(:course, %Course{})
   end
 
   defp teacher_courses(teacher) do
@@ -39,17 +55,20 @@ defmodule AthenaWeb.Teachers.CourseLive.Index do
   def render(assigns) do
     ~H"""
     <%= if @show_modal do %>
-      <h1>Test</h1>
-    <% else %>
-      <div class="mt-5">
-        <h1 class="text-white text-2xl font-semibold">Meus Cursos</h1>
-        <br>
+      <.modal id="create_course_modal" show={@show_modal}>
+        <.live_component module={FormComponent} id="create_course" teacher={@teacher} course={@course}/>
+      </.modal>
+    <% end %>
+    <div class="mt-5">
+      <h1 class="text-white text-2xl font-semibold">Meus Cursos</h1>
+      <br>
+      <div class="grid grid-cols-4">
         <CardComponent.add_course new_course_url={~p"/teachers/courses/new"}/>
-        <div :for={course <- @courses} class="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
+        <div :for={course <- @courses} class="pt-2 pl-4 w-full">
           <CardComponent.course course={course} course_url={~p"/teachers/courses/#{course.slug}"}/>
         </div>
       </div>
-    <% end %>
+    </div>
     """
   end
 end
