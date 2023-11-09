@@ -10,7 +10,7 @@ defmodule Athena.Education.Course do
     field(:slug, :string)
     field(:name, :string)
     field(:description, :string)
-    field(:cover_url, :string)
+    field(:thumbnail_url, :string)
     field(:featured, :boolean, default: false)
     belongs_to(:teacher, Athena.Education.Teacher)
 
@@ -20,7 +20,7 @@ defmodule Athena.Education.Course do
     timestamps()
   end
 
-  @required_fields [:slug, :name, :description, :cover_url, :featured, :teacher_id]
+  @required_fields [:slug, :name, :description, :thumbnail_url, :featured, :teacher_id]
 
   def changeset(course, attrs) do
     course

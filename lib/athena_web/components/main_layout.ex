@@ -89,7 +89,7 @@ defmodule AthenaWeb.MainLayout do
           @class
         ]}>
           <img
-            src={@course.cover_url}
+            src={@course.thumbnail_url}
             alt=""
             class="object-cover pointer-events-none group-hover:opacity-75"
           />

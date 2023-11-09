@@ -1,4 +1,4 @@
-defmodule AthenaWeb.Teachers.CourseLIve.FormComponent do
+defmodule AthenaWeb.Teachers.CourseLive.CourseFormComponent do
   use AthenaWeb, :live_component
 
   alias Athena.Education
@@ -15,7 +15,7 @@ defmodule AthenaWeb.Teachers.CourseLIve.FormComponent do
         <.simple_form for={@form} id={@id} phx-submit="save" phx-change="validate" phx-target={@myself}>
           <.input field={@form[:name]} type="text" placeholder="Nome" label="Nome" required />
           <.input field={@form[:description]} type="text" placeholder="Descrição" label="Descrição" required />
-          <.input field={@form[:cover_url]} type="text" placeholder="Imagem de Capa" label="Imagem de Capa" required />
+          <.input field={@form[:thumbnail_url]} type="text" placeholder="Imagem de Capa" label="Imagem de Capa" required />
           <.input field={@form[:featured]} type="checkbox" label="Em destaque?" required />
           <:actions>
             <.button

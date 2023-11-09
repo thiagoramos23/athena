@@ -4,7 +4,7 @@ defmodule AthenaWeb.Teachers.CourseLive.Index do
   alias Athena.Education
   alias Athena.Education.Course
   alias AthenaWeb.Components.CardComponent
-  alias AthenaWeb.Teachers.CourseLIve.FormComponent
+  alias AthenaWeb.Teachers.CourseLive.CourseFormComponent
 
   def mount(_params, _session, socket) do
     current_user = socket.assigns.current_user
@@ -56,16 +56,16 @@ defmodule AthenaWeb.Teachers.CourseLive.Index do
     ~H"""
     <%= if @show_modal do %>
       <.modal id="create_course_modal" show={@show_modal}>
-        <.live_component module={FormComponent} id="create_course" teacher={@teacher} course={@course}/>
+        <.live_component module={CourseFormComponent} id="create_course" teacher={@teacher} course={@course}/>
       </.modal>
     <% end %>
     <div class="mt-5">
-      <h1 class="text-white text-2xl font-semibold">Meus Cursos</h1>
+      <h1 class="text-white text-2xl font-semibold">Cursos que criados pelo professor <%= @teacher.name %></h1>
       <br>
       <div class="grid grid-cols-4">
-        <CardComponent.add_course new_course_url={~p"/teachers/courses/new"}/>
+        <CardComponent.add_new_item new_item_url={~p"/teachers/courses/new"}/>
         <div :for={course <- @courses} class="pt-2 pl-4 w-full">
-          <CardComponent.course course={course} course_url={~p"/teachers/courses/#{course.slug}"}/>
+          <CardComponent.show item={course} item_description={course.description} item_url={~p"/teachers/courses/#{course.slug}"}/>
         </div>
       </div>
     </div>

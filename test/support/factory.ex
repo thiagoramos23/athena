@@ -16,7 +16,7 @@ defmodule Athena.Factory do
         slug: generate_slug_from(name),
         description: "Description",
         featured: false,
-        cover_url: "cover_url",
+        thumbnail_url: "thumbnail_url",
         inserted_at: NaiveDateTime.utc_now(),
         updated_at: NaiveDateTime.utc_now()
       }

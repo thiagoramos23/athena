@@ -10,7 +10,6 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-alias Athena.Education
 alias Athena.Education.Course
 alias Athena.Education.Class
 alias Athena.Repo
@@ -41,7 +40,7 @@ end
     name: "Elixir in Action",
     description: "Good course on ELixlir",
     slug: "elixir-in-action",
-    cover_url:
+    thumbnail_url:
       "https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80",
     featured: true,
     teacher_id: teacher.id
@@ -54,7 +53,7 @@ end
     name: "iOS for The Kids",
     description: "Best iOS content for your kids to learn how to program",
     slug: "ios-for-the-kids",
-    cover_url:
+    thumbnail_url:
       "https://images.unsplash.com/photo-1508830524289-0adcbe822b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2025&q=80",
     featured: false,
     teacher_id: teacher.id
@@ -67,7 +66,7 @@ end
     name: "Rust is the new kid on the block",
     description: "Best Rust course you will ever encounter in your entire life",
     slug: "rust-to-save-the-world",
-    cover_url:
+    thumbnail_url:
       "https://images.unsplash.com/photo-1508830524289-0adcbe822b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2025&q=80",
     featured: false,
     teacher_id: teacher.id
@@ -80,7 +79,7 @@ end
     name: "Rust is the new kid on the block",
     description: "Best Rust course you will ever encounter in your entire life",
     slug: "test-grid",
-    cover_url:
+    thumbnail_url:
       "https://images.unsplash.com/photo-1508830524289-0adcbe822b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2025&q=80",
     featured: false,
     teacher_id: teacher.id
@@ -93,7 +92,7 @@ end
     name: "Rust is the new kid on the block",
     description: "Best Rust course you will ever encounter in your entire life",
     slug: "test-grid-again",
-    cover_url:
+    thumbnail_url:
       "https://images.unsplash.com/photo-1508830524289-0adcbe822b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2025&q=80",
     featured: false,
     teacher_id: teacher.id

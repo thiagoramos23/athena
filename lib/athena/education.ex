@@ -139,6 +139,17 @@ defmodule Athena.Education do
     |> Course.changeset(attrs)
   end
 
+  def create_class(params) do
+    %Class{}
+    |> Class.changeset(params)
+    |> Repo.insert()
+  end
+
+  def change_class(class, attrs \\ %{}) do
+    class
+    |> Class.changeset(attrs)
+  end
+
   def get_teacher_courses(teacher_id) do
     query =
       from course in Course,
@@ -148,6 +159,19 @@ defmodule Athena.Education do
         ]
 
     Repo.all(query)
+  end
+
+  def get_teacher_course_by_slug(teacher_id, course_slug) do
+    query =
+      from course in Course,
+        where: course.teacher_id == ^teacher_id,
+        where: course.slug == ^course_slug,
+        preload: [
+          :teacher,
+          :classes
+        ]
+
+    Repo.one(query)
   end
 
   defp get_student_classes(classes_id, student_id) do
