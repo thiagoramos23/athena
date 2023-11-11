@@ -13,6 +13,18 @@ defmodule Athena.Education.Finder.ClassFinder do
     |> Repo.all()
   end
 
+  def get_by_id(id) do
+    build_query()
+    |> filter(%{id: id})
+    |> Repo.one()
+  end
+
+  def get_by_slug(slug) do
+    build_query()
+    |> filter(%{slug: slug})
+    |> Repo.one()
+  end
+
   defp build_query() do
     from class in Athena.Education.Class,
       as: :class,
@@ -37,6 +49,14 @@ defmodule Athena.Education.Finder.ClassFinder do
       preload: [
         students: students
       ]
+  end
+
+  defp filter_query({:id, id}, query) do
+    where(query, [class: class], class.id == ^id)
+  end
+
+  defp filter_query({:slug, slug}, query) do
+    where(query, [class: class], class.slug == ^slug)
   end
 
   defp filter_query(_params, query), do: query

@@ -13,6 +13,13 @@ defmodule Athena.Education.Finder.CourseFinder do
     |> Repo.preload([:classes])
   end
 
+  def get_course_by_id(course_id) do
+    CourseQuery.build()
+    |> CourseQuery.by_id(course_id)
+    |> Repo.one()
+    |> Repo.preload([:classes])
+  end
+
   def featured_course(opts \\ []) do
     preloads = Keyword.get(opts, :preload, [])
 

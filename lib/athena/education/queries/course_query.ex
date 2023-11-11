@@ -11,6 +11,11 @@ defmodule Athena.Education.Queries.CourseQuery do
       order_by: [asc: course.id]
   end
 
+  def by_id(query, id) do
+    query
+    |> where([course: course], course.id == ^id)
+  end
+
   def by_slug(query, slug) do
     query
     |> where([course: course], course.slug == ^slug)

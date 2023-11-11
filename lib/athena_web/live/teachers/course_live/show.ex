@@ -34,6 +34,10 @@ defmodule AthenaWeb.Teachers.CourseLive.Show do
     {:noreply, handle_class_created(class, socket)}
   end
 
+  def handle_info({:updated_class, class}, socket) do
+    {:noreply, handle_class_updated(class, socket)}
+  end
+
   defp handle_class_created(class, socket) do
     socket
     |> put_flash(:info, "Aula criada com sucesso!")
@@ -46,8 +50,20 @@ defmodule AthenaWeb.Teachers.CourseLive.Show do
     |> push_patch(to: ~p"/teachers/courses/#{socket.assigns.course.slug}")
   end
 
+  defp handle_class_updated(_class, socket) do
+    socket
+    |> put_flash(:info, "Aula atualizada com sucesso!")
+    |> push_navigate(to: ~p"/teachers/courses/#{socket.assigns.course.slug}")
+  end
+
   defp apply_action(socket, :index, _params) do
     socket |> assign(:show_modal, false)
+  end
+
+  defp apply_action(socket, :edit, %{"class_slug" => class_slug}) do
+    socket
+    |> assign(:show_modal, true)
+    |> assign(:class, Education.get_class_by_slug(class_slug))
   end
 
   defp apply_action(socket, :new, _params) do
@@ -78,7 +94,11 @@ defmodule AthenaWeb.Teachers.CourseLive.Show do
       <div class="grid grid-cols-4">
         <CardComponent.add_new_item new_item_url={~p"/teachers/courses/#{@course.slug}/classes/new"}/>
         <div :for={class <- @course.classes} class="pt-2 pl-4 w-full">
-          <CardComponent.show item={class} item_description={class.summary} item_url={~p"/teachers/courses/#{@course.slug}/classes/#{class.slug}"}/>
+          <CardComponent.show
+          item={class}
+          item_description={class.summary}
+          item_url={~p"/teachers/courses/#{@course.slug}/classes/#{class.slug}"}
+          edit_item_url={~p"/teachers/courses/#{@course.slug}/classes/#{class.slug}/edit"}/>
         </div>
       </div>
     </div>

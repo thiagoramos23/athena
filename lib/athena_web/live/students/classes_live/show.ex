@@ -131,11 +131,11 @@ defmodule AthenaWeb.Students.ClassesLive.Show do
           <div id={class_id}
             :for={{class_id, class} <- @streams.classes}>
             <.link navigate={~p"/courses/#{@class.course.slug}/classes/#{class.slug}"}>
-              <div class="flex text-gray-500 flex-items mb-2 p-1 hover:bg-gray-800/50">
+              <div class={["flex text-gray-500 flex-items mb-2 p-1 hover:bg-gray-800/50", @class.slug == class.slug && "bg-gray-300 bg-opacity-10 p-2 rounded-md"]}>
                 <.icon
                   :if={not class.completed}
                   name="hero-check-circle"
-                  class="mt-1 mr-4 text-gray-500"
+                  class="mt-[1.5px] mr-4 text-gray-500"
                 />
                 <.icon
                   :if={class.completed}
@@ -145,7 +145,7 @@ defmodule AthenaWeb.Students.ClassesLive.Show do
                 <div class="text-gray-200 text-md">
                   <%= class.name %>
                 </div>
-                <div class="text-sm text-gray-500 pl-8">
+                <div class="text-sm text-gray-500 mt-[1px] ml-auto">
                   <.time_formatted time={class.class_length} />
                 </div>
               </div>

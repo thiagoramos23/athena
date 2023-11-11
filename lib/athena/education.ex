@@ -19,6 +19,7 @@ defmodule Athena.Education do
 
   defdelegate student_courses(student), to: CourseFinder
   defdelegate get_course_by_slug(course_slug), to: CourseFinder
+  defdelegate get_course_by_id(course_id), to: CourseFinder
 
   def featured_course(opts) do
     featured_course = CourseFinder.featured_course(opts)
@@ -93,6 +94,14 @@ defmodule Athena.Education do
     ClassFinder.call(course_slug: course_slug)
   end
 
+  def get_class_by_slug(class_slug) do
+    ClassFinder.get_by_slug(class_slug)
+  end
+
+  def get_class_by_id(class_id) do
+    ClassFinder.get_by_id(class_id)
+  end
+
   def get_classes(course_slug, student_id) do
     classes =
       ClassFinder.call(
@@ -134,6 +143,12 @@ defmodule Athena.Education do
     |> Repo.insert()
   end
 
+  def update_course(course, params) do
+    course
+    |> Course.changeset(params)
+    |> Repo.update()
+  end
+
   def change_course(course, attrs \\ %{}) do
     course
     |> Course.changeset(attrs)
@@ -143,6 +158,12 @@ defmodule Athena.Education do
     %Class{}
     |> Class.changeset(params)
     |> Repo.insert()
+  end
+
+  def update_class(class, params) do
+    class
+    |> Class.changeset(params)
+    |> Repo.update()
   end
 
   def change_class(class, attrs \\ %{}) do
@@ -156,7 +177,8 @@ defmodule Athena.Education do
         where: course.teacher_id == ^teacher_id,
         preload: [
           :teacher
-        ]
+        ],
+        order_by: [asc: course.id]
 
     Repo.all(query)
   end
