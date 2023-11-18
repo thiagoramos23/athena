@@ -28,7 +28,9 @@ defmodule AthenaWeb.Students.CoursesLive.Index do
           Destaque
         </div>
       </div>
-      <MainLayout.show_course_with_classes course={@featured_course} />
+      <div :if={@featured_course}>
+        <MainLayout.show_course_with_classes course={@featured_course} />
+      </div>
       <div class="mt-10">
         <div class="font-sans font-bold text-blue-400">
           Cursos
