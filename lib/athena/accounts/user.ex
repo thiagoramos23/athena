@@ -165,7 +165,10 @@ defmodule Athena.Accounts.User do
   def student?(nil), do: false
 
   def student?(user) do
-    IO.inspect(user.student, label: "STUDENT")
     !is_nil(user.student)
+  end
+
+  def paid_student?(user) do
+    student?(user) && user.student.state == :paid
   end
 end

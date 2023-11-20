@@ -22,7 +22,7 @@ defmodule AthenaWeb.Components.CardComponent do
     			<h2 class="mt-4 text-lg text-white">
     				<%= @item.name %>
     			</h2>
-    			<p class="mt-1 text-md font-light text-gray-100"><%= @item_description %></p>
+    			<p class="mt-1 text-md font-normal text-gray-100"><%= @item_description %></p>
     		</div>
     	</.link>
     </div>

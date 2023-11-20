@@ -1,6 +1,7 @@
 defmodule AthenaWeb.Students.CoursesLive.Index do
   use AthenaWeb, :live_view
 
+  alias Athena.Accounts.User
   alias AthenaWeb.MainLayout
   alias Athena.Education
 
@@ -28,7 +29,9 @@ defmodule AthenaWeb.Students.CoursesLive.Index do
           Destaque
         </div>
       </div>
-      <MainLayout.show_course_with_classes course={@featured_course} />
+      <div :if={@featured_course}>
+        <MainLayout.show_course_with_classes course={@featured_course} current_user={@current_user} paid_student={User.paid_student?(@current_user)}/>
+      </div>
       <div class="mt-10">
         <div class="font-sans font-bold text-blue-400">
           Cursos
@@ -36,7 +39,7 @@ defmodule AthenaWeb.Students.CoursesLive.Index do
       </div>
       <div class="mt-10">
         <div :for={course <- @courses}>
-          <MainLayout.show_course_with_classes course={course} />
+          <MainLayout.show_course_with_classes course={course} current_user={@current_user} paid_student={User.paid_student?(@current_user)}/>
           <br/>
         </div>
       </div>

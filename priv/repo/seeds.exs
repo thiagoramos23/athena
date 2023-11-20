@@ -15,8 +15,17 @@ alias Athena.Education.Class
 alias Athena.Repo
 
 defmodule Checks do
-  def public?(index) do
-    if index == 0, do: :public, else: :private
+  def public?(index, total_classes) do
+    cond do
+      index == 0 ->
+        :public
+
+      index == total_classes ->
+        :soon
+
+      true ->
+        :private
+    end
   end
 end
 
@@ -115,7 +124,7 @@ for i <- 0..5,
       "https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80",
     class_length: 540,
     course_id: course.id,
-    state: Checks.public?(i)
+    state: Checks.public?(i, 5)
   })
   |> Repo.insert()
 end

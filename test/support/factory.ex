@@ -17,6 +17,7 @@ defmodule Athena.Factory do
         description: "Description",
         featured: false,
         thumbnail_url: "thumbnail_url",
+        teacher: build(:teacher),
         inserted_at: NaiveDateTime.utc_now(),
         updated_at: NaiveDateTime.utc_now()
       }
@@ -43,7 +44,8 @@ defmodule Athena.Factory do
         video_url: "https://vimeo.com/video/123456",
         thumbnail_url: "https://vimeo.com/video/123456",
         state: :public,
-        description: "This is a class text"
+        description: "This is a class text",
+        course: build(:course)
       }
 
     merge_attributes(class, attrs)

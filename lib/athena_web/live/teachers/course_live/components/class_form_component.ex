@@ -18,7 +18,7 @@ defmodule AthenaWeb.Teachers.CourseLive.ClassFormComponent do
           <.input field={@form[:video_url]} type="text" placeholder="Vídeo URL" label="Vídeo URL" required />
           <.input field={@form[:class_length]} type="text" placeholder="Duração da Aula" label="Duração da Aula" required />
           <.input field={@form[:state]} type="select" placeholder="Tipo da aula" label="Tipo da aula"
-    				options={["público": "public", private: "private", pago: "paid"]} value={"public"} required />
+    				options={["público": "public", private: "private", pago: "paid", breve: "soon"]} value={"public"} required />
           <:actions>
             <.button
               phx-disable-with="Criando..."

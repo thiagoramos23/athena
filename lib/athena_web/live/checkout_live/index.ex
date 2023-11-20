@@ -118,6 +118,6 @@ defmodule AthenaWeb.CheckoutLive.Index do
   end
 
   def mount(_params, _session, socket) do
-    {:ok, socket}
+    {:ok, socket |> push_navigate(to: ~p"/")}
   end
 end

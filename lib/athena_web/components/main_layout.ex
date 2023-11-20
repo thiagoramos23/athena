@@ -67,10 +67,12 @@ defmodule AthenaWeb.MainLayout do
         <div class="max-w-xl lg:text-center">
           <h2 class="mt-2 text-5xl font-normal tracking-normal text-left text-white sm:leading-tight sm:text-5xl">
             Aprenda a Construir Aplicações Íncriveis com
-            <span class="font-bold">Elixir and LiveView</span>
+            <span class="font-bold">Elixir, LiveView e iOS</span>
           </h2>
-          <p class="mt-2 text-left text-gray-300 text-md font-light">
-            Um jeito novo de aprender, mão na massa e divertido. Aprenda a criar aplicações incríveis codando junto comigo e se divertindo no processo.
+          <p class="mt-2 text-left text-gray-300 text-md font-normal">
+            Um jeito novo de aprender, mão na massa e divertido. Uma plataforma criada pra você que quer criar um produto completo do zero.
+            Aprenda a criar aplicações WEB escaláveis com Elixir e LiveView e aplicações mobile nativas com iOS. Todas as aulas com conteúdo
+            super bem explicado e muita mão na massa.
           </p>
         </div>
       </div>
@@ -113,8 +115,16 @@ defmodule AthenaWeb.MainLayout do
         <%= @course.description %>
       </span>
     </div>
-    <MainLayout.list_classes_for_course course={@course} />
+    <MainLayout.list_classes_for_course course={@course} current_user={@current_user} paid_student={@paid_student} />
     """
+  end
+
+  defp get_class_link(course, class, is_paid_student) do
+    if class.state == :soon || (class.state == :paid && !is_paid_student) do
+      "#"
+    else
+      ~p"/courses/#{course.slug}/classes/#{class.slug}"
+    end
   end
 
   def list_classes_for_course(assigns) do
@@ -122,11 +132,16 @@ defmodule AthenaWeb.MainLayout do
     <div class="mt-12">
       <ul role="list" class="grid md:grid-cols-4 md:gap-y-9 sm:grid-cols-4 sm:gap-x-2 lg:grid-cols-3">
         <div class="w-[95%]" :for={klass <- @course.classes}>
-          <.link id={klass.slug} navigate={~p"/courses/#{@course.slug}/classes/#{klass.slug}"}>
+          <.link id={klass.slug} navigate={get_class_link(@course, klass, @paid_student)}>
             <li class="pt-4 md:pt-0">
               <div class="block sm:mt-2 overflow-hidden bg-gray-100 rounded-lg outline-none group aspect-h-1 aspect-w-2">
-                <img
+                <img :if={klass.state != :soon}
                   src={klass.thumbnail_url}
+                  alt=""
+                  class="object-cover pointer-events-none group-hover:opacity-75"
+                />
+                <img :if={klass.state == :soon}
+                  src="/images/soon.png"
                   alt=""
                   class="object-cover pointer-events-none group-hover:opacity-75"
                 />
@@ -134,31 +149,24 @@ defmodule AthenaWeb.MainLayout do
                   <span class="sr-only"><%= klass.name %></span>
                 </button>
               </div>
-              <div class="mt-2">
-                <div
-                  :if={klass.state == :public}
-                  class="w-10 px-1.5 py-0.5 text-sm font-medium text-white bg-gradient-to-r from-green-500 to-green-800 rounded rounded-lg"
-                >
-                  Free
+              <div class="flex">
+                <div class="mt-2">
+                  <div
+                    class="px-1.5 py-0.5 text-sm font-medium text-white rounded rounded-lg">
+                    <.icon :if={klass.state == :public} name="hero-eye" />
+                    <.icon :if={klass.state == :private and @current_user} name="hero-eye" />
+                    <.icon :if={klass.state == :private and !@current_user} name="hero-eye-slash" />
+                    <.icon :if={klass.state == :paid and @paid_student} name="hero-eye" />
+                    <.icon :if={klass.state == :paid and !@paid_student} name="hero-lock-closed" />
+                    <.icon :if={klass.state == :soon} name="hero-lock-closed" />
+                  </div>
                 </div>
-                <div
-                  :if={klass.state == :private}
-                  class="w-32 px-2 py-0.5 text-sm font-medium text-white bg-gradient-to-r from-cyan-500 to-blue-500 rounded rounded-lg"
-                >
-                  Necessita Login
-                </div>
-                <div
-                  :if={klass.state == :paid}
-                  class="w-10 px-2 py-0.5 text-sm font-medium text-white bg-red-800 rounded rounded-lg"
-                >
-                  Pro
-                </div>
-              </div>
 
-              <p class="block mt-3 text-sm font-medium text-white truncate pointer-events-none">
-                <%= klass.name %>
-              </p>
-              <p class="mt-1 text-sm font-light text-gray-300 pointer-events-none">
+                <p class="block mt-3 text-sm font-medium text-white truncate pointer-events-none">
+                  <%= klass.name %>
+                </p>
+              </div>
+              <p class="px-1.5 mt-1 text-sm font-normal text-gray-300 pointer-events-none">
                 <%= klass.summary %>
               </p>
             </li>
