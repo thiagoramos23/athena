@@ -23,15 +23,24 @@ defmodule Athena.Education do
 
   def featured_course(opts) do
     featured_course = CourseFinder.featured_course(opts)
-    classes = Enum.sort_by(featured_course.classes, & &1.id)
-    %{featured_course | classes: classes}
+
+    if featured_course do
+      classes = Enum.sort_by(featured_course.classes, & &1.id)
+      %{featured_course | classes: classes}
+    else
+      featured_course
+    end
   end
 
   def not_featured_courses(opts) do
     CourseFinder.not_featured_courses(opts)
     |> Enum.map(fn course ->
-      classes = Enum.sort_by(course.classes, & &1.id)
-      %{course | classes: classes}
+      if course do
+        classes = Enum.sort_by(course.classes, & &1.id)
+        %{course | classes: classes}
+      else
+        course
+      end
     end)
   end
 

@@ -1,11 +1,15 @@
-# fly.toml app configuration file generated for athena-app on 2023-11-17T22:17:41-03:00
+# fly.toml app configuration file generated for athena-course-platform on 2023-11-17T21:35:18-03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = "athena-app"
-primary_region = "gig"
+primary_region = "gru"
 kill_signal = "SIGTERM"
+kill_timeout = "5s"
+
+[experimental]
+  auto_rollback = true
 
 [build]
 
@@ -27,3 +31,26 @@ kill_signal = "SIGTERM"
     type = "connections"
     hard_limit = 1000
     soft_limit = 1000
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 8080
+  processes = ["app"]
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+    force_https = true
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
+  [services.concurrency]
+    type = "connections"
+    hard_limit = 1000
+    soft_limit = 1000
+
+  [[services.tcp_checks]]
+    interval = "15s"
+    timeout = "2s"
+    grace_period = "1s"
