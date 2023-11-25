@@ -17,7 +17,7 @@ defmodule AthenaWeb.Components.CardComponent do
     		<div class="group">
     >
     			<div class="h-64 w-full overflow-hidden rounded-lg bg-gray-200 group-hover:opacity-75">
-    				<img src={@item.thumbnail_url} alt={@item.description} class="h-full w-full object-cover object-center">
+    				<img src={@item.thumbnail_url} alt={@item.description} class="h-full w-full object-cover">
     			</div>
     			<h2 class="mt-4 text-lg text-white">
     				<%= @item.name %>
