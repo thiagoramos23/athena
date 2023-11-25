@@ -73,7 +73,7 @@ defmodule AthenaWeb.Teachers.CourseLive.Index do
   def render(assigns) do
     ~H"""
     <%= if @show_modal do %>
-      <.modal id="create_course_modal" show={@show_modal}>
+      <.modal id="create_course_modal" show={@show_modal} on_cancel={JS.navigate(~p"/teachers/courses")}>
         <.live_component module={CourseFormComponent} id="create_course" teacher={@teacher} course={@course}/>
       </.modal>
     <% end %>

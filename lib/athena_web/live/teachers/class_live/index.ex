@@ -1,4 +1,4 @@
-defmodule AthenaWeb.Teachers.CourseLive.Show do
+defmodule AthenaWeb.Teachers.ClassLive.Index do
   use AthenaWeb, :live_view
 
   alias Athena.Education
@@ -79,7 +79,7 @@ defmodule AthenaWeb.Teachers.CourseLive.Show do
   def render(assigns) do
     ~H"""
     <%= if @show_modal do %>
-      <.modal id="create_class_modal" show={@show_modal}>
+      <.modal id="create_class_modal" show={@show_modal} on_cancel={JS.navigate(~p"/teachers/courses/#{@course.slug}")}>
         <.live_component module={ClassFormComponent} id="create_class" class={@class} course={@course}/>
       </.modal>
     <% end %>

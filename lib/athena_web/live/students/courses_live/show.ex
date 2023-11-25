@@ -1,7 +1,9 @@
-defmodule AthenaWeb.CoursesLive.Show do
+defmodule AthenaWeb.Students.CoursesLive.Show do
   use AthenaWeb, :live_view
-  alias AthenaWeb.MainLayout
+  alias Athena.Accounts.User
   alias Athena.Education
+
+  alias AthenaWeb.MainLayout
 
   def mount(_params, _session, socket) do
     {:ok, socket}
@@ -18,7 +20,11 @@ defmodule AthenaWeb.CoursesLive.Show do
 
   def render(assigns) do
     ~H"""
-    <MainLayout.show_course_with_classes course={@course} />
+    <MainLayout.show_course_with_classes
+      course={@course}
+      current_user={@current_user}
+      paid_student={User.paid_student?(@current_user)}
+    />
     """
   end
 end
