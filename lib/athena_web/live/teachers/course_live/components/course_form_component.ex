@@ -47,7 +47,8 @@ defmodule AthenaWeb.Teachers.CourseLive.CourseFormComponent do
     {:noreply, assign_form(socket, changeset)}
   end
 
-  def handle_event("save", %{"course" => %{"id" => course_id} = course_params}, socket) do
+  def handle_event("save", %{"course" => %{"id" => course_id} = course_params}, socket)
+      when course_id != "" do
     params = merge_params(course_params, socket)
     course = Education.get_course_by_id(course_id)
     {:noreply, update_course(socket, course, params)}
