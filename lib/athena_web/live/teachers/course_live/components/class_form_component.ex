@@ -9,16 +9,59 @@ defmodule AthenaWeb.Teachers.CourseLive.ClassFormComponent do
     <div class="mx-auto bg-gray-800">
       <div class="px-4 border-b border-gray-900/10">
         <h2 class="text-xl font-semibold leading-7 text-gray-50">Criar Aula</h2>
-        <.simple_form for={@form} id={@id} phx-submit="save" phx-change="validate" phx-target={@myself}>
-          <.input field={@form[:id]} type="hidden"/>
+        <.simple_form
+          for={@form}
+          id={@id}
+          phx-submit="save"
+          phx-change="validate"
+          phx-target={@myself}
+        >
+          <.input field={@form[:id]} type="hidden" />
           <.input field={@form[:name]} type="text" placeholder="Nome" label="Nome" required />
-          <.input field={@form[:summary]} type="text" placeholder="Sumário" label="Sumário" required />
-          <.input field={@form[:description]} type="textarea" placeholder="Adicionar descrição em markdown" label="Descrição" required />
-          <.input field={@form[:thumbnail_url]} type="text" placeholder="Imagem de Capa" label="Imagem de Capa" required />
-          <.input field={@form[:video_url]} type="text" placeholder="Vídeo URL" label="Vídeo URL" required />
-          <.input field={@form[:class_length]} type="text" placeholder="Duração da Aula" label="Duração da Aula" required />
-          <.input field={@form[:state]} type="select" placeholder="Tipo da aula" label="Tipo da aula"
-    				options={["público": "public", private: "private", pago: "paid", breve: "soon"]} value={"public"} required />
+          <.input
+            field={@form[:summary]}
+            type="text"
+            placeholder="Sumário"
+            label="Sumário"
+            required
+          />
+          <.input
+            field={@form[:description]}
+            type="textarea"
+            placeholder="Adicionar descrição em markdown"
+            label="Descrição"
+            required
+          />
+          <.input
+            field={@form[:thumbnail_url]}
+            type="text"
+            placeholder="Imagem de Capa"
+            label="Imagem de Capa"
+            required
+          />
+          <.input
+            field={@form[:video_url]}
+            type="text"
+            placeholder="Vídeo URL"
+            label="Vídeo URL"
+            required
+          />
+          <.input
+            field={@form[:class_length]}
+            type="text"
+            placeholder="Duração da Aula"
+            label="Duração da Aula"
+            required
+          />
+          <.input
+            field={@form[:state]}
+            type="select"
+            placeholder="Tipo da aula"
+            label="Tipo da aula"
+            options={[público: "public", private: "private", pago: "paid", breve: "soon"]}
+            value="public"
+            required
+          />
           <:actions>
             <.button
               phx-disable-with="Criando..."

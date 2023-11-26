@@ -19,10 +19,20 @@ defmodule AthenaWeb.MainLayout do
             </div>
           </div>
           <div :if={can_become_teacher(@current_user)} class="hidden lg:flex ml-auto">
-            <a href="/teachers/new" class="text-sm font-semibold text-white leading-6 bg-green-600 p-2 rounded-md">Se torne um professor</a>
+            <a
+              href="/teachers/new"
+              class="text-sm font-semibold text-white leading-6 bg-green-600 p-2 rounded-md"
+            >
+              Se torne um professor
+            </a>
           </div>
           <div :if={can_access_teacher_panel(@current_user)} class="hidden lg:flex ml-auto">
-            <a href="/teachers" class="text-sm font-semibold text-white leading-6 bg-green-600 p-2 rounded-md">Acesse a plataforma de ensino</a>
+            <a
+              href="/teachers"
+              class="text-sm font-semibold text-white leading-6 bg-green-600 p-2 rounded-md"
+            >
+              Acesse a plataforma de ensino
+            </a>
           </div>
         </nav>
         <div class="mt-2">
@@ -115,7 +125,11 @@ defmodule AthenaWeb.MainLayout do
         <%= @course.description %>
       </span>
     </div>
-    <MainLayout.list_classes_for_course course={@course} current_user={@current_user} paid_student={@paid_student} />
+    <MainLayout.list_classes_for_course
+      course={@course}
+      current_user={@current_user}
+      paid_student={@paid_student}
+    />
     """
   end
 
@@ -131,16 +145,18 @@ defmodule AthenaWeb.MainLayout do
     ~H"""
     <div class="mt-12">
       <ul role="list" class="grid md:grid-cols-4 md:gap-y-9 sm:grid-cols-4 sm:gap-x-2 lg:grid-cols-3">
-        <div class="w-[95%]" :for={klass <- @course.classes}>
+        <div :for={klass <- @course.classes} class="w-[95%]">
           <.link id={klass.slug} navigate={get_class_link(@course, klass, @paid_student)}>
             <li class="pt-4 md:pt-0">
               <div class="block sm:mt-2 overflow-hidden bg-gray-100 rounded-lg outline-none group aspect-h-1 aspect-w-2">
-                <img :if={klass.state != :soon}
+                <img
+                  :if={klass.state != :soon}
                   src={klass.thumbnail_url}
                   alt=""
                   class="object-cover pointer-events-none group-hover:opacity-75"
                 />
-                <img :if={klass.state == :soon}
+                <img
+                  :if={klass.state == :soon}
                   src="/images/soon.png"
                   alt=""
                   class="object-cover pointer-events-none group-hover:opacity-75"
@@ -151,8 +167,7 @@ defmodule AthenaWeb.MainLayout do
               </div>
               <div class="flex">
                 <div class="mt-2">
-                  <div
-                    class="px-1.5 py-0.5 text-sm font-medium text-white rounded rounded-lg">
+                  <div class="px-1.5 py-0.5 text-sm font-medium text-white rounded rounded-lg">
                     <.icon :if={klass.state == :public} name="hero-eye" />
                     <.icon :if={klass.state == :private and @current_user} name="hero-eye" />
                     <.icon :if={klass.state == :private and !@current_user} name="hero-eye-slash" />

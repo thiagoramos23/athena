@@ -79,8 +79,17 @@ defmodule AthenaWeb.Teachers.ClassLive.Index do
   def render(assigns) do
     ~H"""
     <%= if @show_modal do %>
-      <.modal id="create_class_modal" show={@show_modal} on_cancel={JS.navigate(~p"/teachers/courses/#{@course.slug}")}>
-        <.live_component module={ClassFormComponent} id="create_class" class={@class} course={@course}/>
+      <.modal
+        id="create_class_modal"
+        show={@show_modal}
+        on_cancel={JS.navigate(~p"/teachers/courses/#{@course.slug}")}
+      >
+        <.live_component
+          module={ClassFormComponent}
+          id="create_class"
+          class={@class}
+          course={@course}
+        />
       </.modal>
     <% end %>
     <div :if={!@course} class="text-2xl text-white">
@@ -90,15 +99,16 @@ defmodule AthenaWeb.Teachers.ClassLive.Index do
       <h1 class="text-white text-2xl font-semibold">
         <%= @course.name %>
       </h1>
-      <br>
+      <br />
       <div class="grid grid-cols-4">
-        <CardComponent.add_new_item new_item_url={~p"/teachers/courses/#{@course.slug}/classes/new"}/>
+        <CardComponent.add_new_item new_item_url={~p"/teachers/courses/#{@course.slug}/classes/new"} />
         <div :for={class <- @course.classes} class="pt-2 pl-4 w-full">
           <CardComponent.show
-          item={class}
-          item_description={class.summary}
-          item_url={~p"/teachers/courses/#{@course.slug}/classes/#{class.slug}"}
-          edit_item_url={~p"/teachers/courses/#{@course.slug}/classes/#{class.slug}/edit"}/>
+            item={class}
+            item_description={class.summary}
+            item_url={~p"/teachers/courses/#{@course.slug}/classes/#{class.slug}"}
+            edit_item_url={~p"/teachers/courses/#{@course.slug}/classes/#{class.slug}/edit"}
+          />
         </div>
       </div>
     </div>

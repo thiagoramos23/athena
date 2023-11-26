@@ -12,18 +12,36 @@ defmodule AthenaWeb.Teachers.CourseLive.CourseFormComponent do
         <p class="mt-1 text-lg leading-6 text-gray-100">
           Ao clicar no botão para se cadastrar você concorda com os termos de serviço desta plataforma
         </p>
-        <.simple_form for={@form} id={@id} phx-submit="save" phx-change="validate" phx-target={@myself}>
-          <.input field={@form[:id]} type="hidden"/>
+        <.simple_form
+          for={@form}
+          id={@id}
+          phx-submit="save"
+          phx-change="validate"
+          phx-target={@myself}
+        >
+          <.input field={@form[:id]} type="hidden" />
           <.input field={@form[:name]} type="text" placeholder="Nome" label="Nome" required />
-          <.input field={@form[:description]} type="text" placeholder="Descrição" label="Descrição" required />
-          <.input field={@form[:thumbnail_url]} type="text" placeholder="Imagem de Capa" label="Imagem de Capa" required />
+          <.input
+            field={@form[:description]}
+            type="text"
+            placeholder="Descrição"
+            label="Descrição"
+            required
+          />
+          <.input
+            field={@form[:thumbnail_url]}
+            type="text"
+            placeholder="Imagem de Capa"
+            label="Imagem de Capa"
+            required
+          />
           <.input field={@form[:featured]} type="checkbox" label="Em destaque?" />
           <:actions>
             <.button
               phx-disable-with="Criando..."
               class="bg-green-600 border border-green-700 rounded-md p-2"
             >
-             Confirmar
+              Confirmar
             </.button>
           </:actions>
         </.simple_form>

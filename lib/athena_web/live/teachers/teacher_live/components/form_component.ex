@@ -12,7 +12,13 @@ defmodule AthenaWeb.Teachers.TeacherLive.FormComponent do
         <p class="mt-1 text-lg leading-6 text-gray-100">
           Ao clicar no botão para se cadastrar você concorda com os termos de serviço desta plataforma
         </p>
-        <.simple_form for={@form} id={@id} phx-submit="save" phx-change="validate" phx-target={@myself}>
+        <.simple_form
+          for={@form}
+          id={@id}
+          phx-submit="save"
+          phx-change="validate"
+          phx-target={@myself}
+        >
           <.input field={@form[:name]} type="text" placeholder="Nome" label="Nome" required />
           <.input field={@form[:email]} type="email" placeholder="Email" label="Email" required />
           <:actions>
