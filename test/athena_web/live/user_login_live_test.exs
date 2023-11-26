@@ -10,7 +10,7 @@ defmodule AthenaWeb.UserLoginLiveTest do
 
       assert html =~ "Log in"
       assert html =~ "Register"
-      assert html =~ "Forgot your password?"
+      assert html =~ "Esqueçeu sua senha?"
     end
 
     test "redirects if already logged in", %{conn: conn} do
@@ -63,7 +63,7 @@ defmodule AthenaWeb.UserLoginLiveTest do
 
       {:ok, _login_live, login_html} =
         lv
-        |> element(~s|main a:fl-contains("Sign up")|)
+        |> element(~s|main a:fl-contains("Criar sua conta")|)
         |> render_click()
         |> follow_redirect(conn, ~p"/users/register")
 
@@ -77,7 +77,7 @@ defmodule AthenaWeb.UserLoginLiveTest do
 
       {:ok, conn} =
         lv
-        |> element(~s|main a:fl-contains("Forgot your password?")|)
+        |> element(~s|main a:fl-contains("Esqueçeu sua senha")|)
         |> render_click()
         |> follow_redirect(conn, ~p"/users/reset_password")
 

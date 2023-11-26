@@ -79,6 +79,9 @@ defmodule Athena.Accounts do
       with {:ok, user} <- do_register_user(attrs),
            {:ok, _student} <- Athena.Education.create_student(%{state: :free, user_id: user.id}) do
         Repo.preload(user, [:student])
+      else
+        {:error, changeset} ->
+          Repo.rollback(changeset)
       end
     end)
   end

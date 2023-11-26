@@ -68,7 +68,6 @@ defmodule Athena.Education do
         :ok
 
       {:error, error} ->
-        dbg()
         Logger.error(error)
         :ok
     end
@@ -85,7 +84,6 @@ defmodule Athena.Education do
         :ok
 
       {:error, error} ->
-        dbg()
         Logger.error(error)
         :ok
     end
@@ -101,14 +99,6 @@ defmodule Athena.Education do
 
   def get_classes(course_slug, nil) do
     ClassFinder.call(course_slug: course_slug)
-  end
-
-  def get_class_by_slug(class_slug) do
-    ClassFinder.get_by_slug(class_slug)
-  end
-
-  def get_class_by_id(class_id) do
-    ClassFinder.get_by_id(class_id)
   end
 
   def get_classes(course_slug, student_id) do
@@ -133,6 +123,14 @@ defmodule Athena.Education do
           class
       end
     end)
+  end
+
+  def get_class_by_slug(class_slug) do
+    ClassFinder.get_by_slug(class_slug)
+  end
+
+  def get_class_by_id(class_id) do
+    ClassFinder.get_by_id(class_id)
   end
 
   def create_teacher(params) do
