@@ -1,4 +1,5 @@
 defmodule AthenaWeb.Components.CardComponent do
+  @moduledoc false
   use Phoenix.Component
   import AthenaWeb.CoreComponents
 

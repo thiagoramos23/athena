@@ -1,4 +1,9 @@
 defmodule Athena.Security.Permission do
+  @moduledoc """
+  Schema for security permissions.
+  This schema is responsible to set roles for the permissions of the platform.
+  Most common now are: :admin, :user
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

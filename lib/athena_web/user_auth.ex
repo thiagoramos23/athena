@@ -1,4 +1,5 @@
 defmodule AthenaWeb.UserAuth do
+  @moduledoc false
   use AthenaWeb, :verified_routes
 
   import Plug.Conn
