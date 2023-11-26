@@ -51,6 +51,21 @@ defmodule Athena.Factory do
     merge_attributes(class, attrs)
   end
 
+  def teacher_factory(attrs \\ %{}) do
+    {name, attrs} = Map.pop_lazy(attrs, :name, fn -> sequence(:name, &"#{&1}") end)
+    {email, attrs} = Map.pop_lazy(attrs, :email, fn -> sequence(:email, &"#{&1}@gmail.com") end)
+
+    teacher =
+      %Teacher{
+        name: name,
+        email: email,
+        state: :active,
+        user: build(:user)
+      }
+
+    merge_attributes(teacher, attrs)
+  end
+
   def user_factory(attrs \\ %{}) do
     {password, attrs} = Map.pop_lazy(attrs, :password, fn -> "hello_world" end)
 
@@ -66,21 +81,6 @@ defmodule Athena.Factory do
       }
 
     merge_attributes(user, attrs)
-  end
-
-  def teacher_factory(attrs \\ %{}) do
-    {name, attrs} = Map.pop_lazy(attrs, :name, fn -> sequence(:name, &"#{&1}") end)
-    {email, attrs} = Map.pop_lazy(attrs, :email, fn -> sequence(:email, &"#{&1}@gmail.com") end)
-
-    teacher =
-      %Teacher{
-        name: name,
-        email: email,
-        state: :active,
-        user: build(:user)
-      }
-
-    merge_attributes(teacher, attrs)
   end
 
   def generate_slug_from(name) do
