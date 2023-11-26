@@ -1,4 +1,7 @@
 defmodule Athena.Accounts.UserNotifier do
+  @moduledoc """
+  Module responsible to notify users with email notifications mostly.
+  """
   import Swoosh.Email
 
   alias Athena.Mailer
