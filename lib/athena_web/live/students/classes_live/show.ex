@@ -86,7 +86,7 @@ defmodule AthenaWeb.Students.ClassesLive.Show do
       <div class="w-full aspect-video">
         <div style="padding:50.25% 0 0 0;position:relative;">
           <iframe
-            src="https://player.vimeo.com/video/801319412?h=9d96b6a3d5&app_id=122963"
+            src={@class.video_url}
             frameborder="0"
             allow="autoplay; fullscreen; picture-in-picture"
             style="position:absolute;left:0;right:0;top:0;width:100%;height:100%;"
