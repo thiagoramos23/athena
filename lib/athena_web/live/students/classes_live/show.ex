@@ -28,8 +28,6 @@ defmodule AthenaWeb.Students.ClassesLive.Show do
     if Education.can_see?(class, user) do
       {:noreply, socket}
     else
-      # TODO: Check if the class is only private or if it's paid.
-      # only send to checkout if the class is paid.
       {:noreply, push_navigate(socket, to: ~p"/checkout")}
     end
   end
