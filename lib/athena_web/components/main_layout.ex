@@ -133,11 +133,16 @@ defmodule AthenaWeb.MainLayout do
     """
   end
 
-  defp get_class_link(course, class, is_paid_student) do
-    if class.state == :soon || (class.state == :paid && !is_paid_student) do
-      "#"
-    else
-      ~p"/courses/#{course.slug}/classes/#{class.slug}"
+  defp get_class_link(course, class, is_paid_student, user) do
+    cond do
+      class.state == :soon || (class.state == :paid && !is_paid_student) ->
+        "#"
+
+      !user && class.state == :private ->
+        ~p"/users/log_in"
+
+      true ->
+        ~p"/courses/#{course.slug}/classes/#{class.slug}"
     end
   end
 
@@ -146,7 +151,10 @@ defmodule AthenaWeb.MainLayout do
     <div class="mt-12">
       <ul role="list" class="grid md:grid-cols-4 md:gap-y-9 sm:grid-cols-4 sm:gap-x-2 lg:grid-cols-3">
         <div :for={klass <- @course.classes} class="w-[95%]">
-          <.link id={klass.slug} navigate={get_class_link(@course, klass, @paid_student)}>
+          <.link
+            id={klass.slug}
+            navigate={get_class_link(@course, klass, @paid_student, @current_user)}
+          >
             <li class="pt-4 md:pt-0">
               <div class="block sm:mt-2 overflow-hidden bg-gray-100 rounded-lg outline-none group aspect-h-1 aspect-w-2">
                 <img

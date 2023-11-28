@@ -119,7 +119,7 @@ for i <- 0..5,
     summary:
       "Learning how to start with the Elixir Language and become a millionaire, forget about working for others and work for yourself",
     description: class_description,
-    video_url: "https://player.vimeo.com/video/822796259?h=17a8f7232b&app_id=122963",
+    video_url: "https://www.youtube.com/embed/gYu960pVWis?si=mUKGqGmbQ29ffPhp",
     thumbnail_url:
       "https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80",
     class_length: 540,
