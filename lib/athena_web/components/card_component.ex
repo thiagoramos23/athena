@@ -6,7 +6,7 @@ defmodule AthenaWeb.Components.CardComponent do
   def show(assigns) do
     ~H"""
     <div class="relative">
-      <div class="absolute text-white text-lg right-2 mt-8 z-10">
+      <div class="absolute text-white text-lg right-2 mt-8">
         <div class="bg-slate-300 p-2 rounded-md">
           <.link patch={@edit_item_url}>
             <.icon name="hero-pencil-square" class="ml-1 h-8 w-8" />

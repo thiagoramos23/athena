@@ -36,7 +36,7 @@ defmodule AthenaWeb.MainLayout do
           </div>
         </nav>
         <div class="mt-2">
-          <div :if={!is_nil(@current_user)} class="flex items-center justify-end p-6 lg:px-8 z-20">
+          <div :if={!is_nil(@current_user)} class="flex items-center justify-end p-6 lg:px-8">
             <label class="text-sm font-semibold text-white leading-6">
               <%= @current_user.email %>
             </label>
@@ -51,7 +51,7 @@ defmodule AthenaWeb.MainLayout do
         </div>
         <div
           :if={is_nil(@current_user)}
-          class="flex items-center justify-end p-6 lg:px-8 cursor-pointer z-20"
+          class="flex items-center justify-end p-6 lg:px-8 cursor-pointer"
         >
           <.link class="ml-4 text-sm font-semibold text-white" href={~p"/users/log_in"}>
             Entrar
@@ -70,7 +70,7 @@ defmodule AthenaWeb.MainLayout do
 
   def headline(assigns) do
     ~H"""
-    <div class="relative overflow-hidden bg-transparent -z-20">
+    <div class="relative overflow-hidden bg-transparent">
       <div class="px-6 py-24 max-w-7xl md:min-w-fit lg:px-8">
         <div class="max-w-4xl lg:text-center">
           <h2 class="max-w-xl mt-2 text-5xl font-normal tracking-normal text-left text-white sm:leading-tight sm:text-5xl">
@@ -145,11 +145,8 @@ defmodule AthenaWeb.MainLayout do
   def list_classes_for_course(assigns) do
     ~H"""
     <div class="mt-12">
-      <div
-        role="list"
-        class="max-w-7xl md:min-w-full mt-7 flex snap-x snap-mandatory space-x-4 overflow-x-auto pb-6
-        lg:max-w-7xl lg:mt-8 lg:grid lg:snap-none lg:grid-cols-3 lg:gap-x-3.5 lg:gap-y-12 lg:space-x-0 lg:before:hidden lg:after:hidden"
-      >
+      <div class="max-w-7xl md:min-w-full mt-7 flex snap-x snap-mandatory space-x-4 overflow-x-auto pb-6
+        lg:max-w-7xl lg:mt-8 lg:grid lg:snap-none lg:grid-cols-3 lg:gap-x-3.5 lg:gap-y-12 lg:space-x-0 lg:before:hidden lg:after:hidden">
         <div :for={klass <- @course.classes} class="flex min-w-fit">
           <.link
             id={klass.slug}
@@ -169,9 +166,7 @@ defmodule AthenaWeb.MainLayout do
                   alt=""
                   class="object-fill pointer-events-none group-hover:opacity-75 rounded-md max-h-48 md:max-h-56 min-w-full"
                 />
-                <button type="button" class="absolute inset-0 focus:outline-none">
-                  <span class="sr-only"><%= klass.name %></span>
-                </button>
+                <span class="sr-only"><%= klass.name %></span>
               </div>
               <div class="flex">
                 <div class="mt-2">
