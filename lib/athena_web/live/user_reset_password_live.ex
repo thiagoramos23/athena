@@ -6,7 +6,7 @@ defmodule AthenaWeb.UserResetPasswordLive do
   def render(assigns) do
     ~H"""
     <div class="mx-auto max-w-sm">
-      <.header class="text-center">Reset Password</.header>
+      <.header class="text-center">Resetar Senha</.header>
 
       <.simple_form
         for={@form}
@@ -15,24 +15,26 @@ defmodule AthenaWeb.UserResetPasswordLive do
         phx-change="validate"
       >
         <.error :if={@form.errors != []}>
-          Oops, something went wrong! Please check the errors below.
+          Oops, algo de errado aconteceu! Por favor, verifique os erros abaixo.
         </.error>
 
         <.input field={@form[:password]} type="password" label="New password" required />
         <.input
           field={@form[:password_confirmation]}
           type="password"
-          label="Confirm new password"
+          label="Confirmar nova senha"
           required
         />
         <:actions>
-          <.button phx-disable-with="Resetting..." class="w-full">Reset Password</.button>
+          <.button phx-disable-with="Resetando..." class="w-full">Redefinir Senha</.button>
         </:actions>
       </.simple_form>
 
       <p class="text-center text-sm mt-4">
-        <.link href={~p"/users/register"}>Register</.link>
-        | <.link href={~p"/users/log_in"}>Log in</.link>
+        <.link id="user_reset_create_account" class="text-white" href={~p"/users/register"}>
+          Criar Conta
+        </.link>
+        | <.link id="user_reset_login" class="text-white" href={~p"/users/log_in"}>Entrar</.link>
       </p>
     </div>
     """

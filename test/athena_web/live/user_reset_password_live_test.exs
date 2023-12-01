@@ -21,7 +21,7 @@ defmodule AthenaWeb.UserResetPasswordLiveTest do
     test "renders reset password with valid token", %{conn: conn, token: token} do
       {:ok, _lv, html} = live(conn, ~p"/users/reset_password/#{token}")
 
-      assert html =~ "Reset Password"
+      assert html =~ "Resetar Senha"
     end
 
     test "does not render reset password with invalid token", %{conn: conn} do
@@ -81,7 +81,7 @@ defmodule AthenaWeb.UserResetPasswordLiveTest do
         )
         |> render_submit()
 
-      assert result =~ "Reset Password"
+      assert result =~ "Resetar Senha"
       assert result =~ "should be at least 12 character(s)"
       assert result =~ "does not match password"
     end
@@ -93,11 +93,11 @@ defmodule AthenaWeb.UserResetPasswordLiveTest do
 
       {:ok, conn} =
         lv
-        |> element(~s|main a:fl-contains("Log in")|)
+        |> element(~s{[id="user_reset_login"]})
         |> render_click()
         |> follow_redirect(conn, ~p"/users/log_in")
 
-      assert conn.resp_body =~ "Log in"
+      assert conn.resp_body =~ "Entrar"
     end
 
     test "redirects to password reset page when the Register button is clicked", %{
@@ -108,11 +108,11 @@ defmodule AthenaWeb.UserResetPasswordLiveTest do
 
       {:ok, conn} =
         lv
-        |> element(~s|main a:fl-contains("Register")|)
+        |> element(~s{[id="user_reset_create_account"]})
         |> render_click()
         |> follow_redirect(conn, ~p"/users/register")
 
-      assert conn.resp_body =~ "Register"
+      assert conn.resp_body =~ "Criar Conta"
     end
   end
 end

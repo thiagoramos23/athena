@@ -8,8 +8,8 @@ defmodule AthenaWeb.UserLoginLiveTest do
     test "renders log in page", %{conn: conn} do
       {:ok, _lv, html} = live(conn, ~p"/users/log_in")
 
-      assert html =~ "Log in"
-      assert html =~ "Register"
+      assert html =~ "Entrar"
+      assert html =~ "Criar Conta"
       assert html =~ "Esqueçeu sua senha?"
     end
 
@@ -67,7 +67,7 @@ defmodule AthenaWeb.UserLoginLiveTest do
         |> render_click()
         |> follow_redirect(conn, ~p"/users/register")
 
-      assert login_html =~ "Register"
+      assert login_html =~ "Criar Conta"
     end
 
     test "redirects to forgot password page when the Forgot Password button is clicked", %{
@@ -81,7 +81,7 @@ defmodule AthenaWeb.UserLoginLiveTest do
         |> render_click()
         |> follow_redirect(conn, ~p"/users/reset_password")
 
-      assert conn.resp_body =~ "Forgot your password?"
+      assert conn.resp_body =~ "Esqueceu sua senha?"
     end
   end
 end

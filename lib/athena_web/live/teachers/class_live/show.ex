@@ -6,7 +6,7 @@ defmodule AthenaWeb.Teachers.ClassLive.Show do
   # alias AthenaWeb.Components.CardComponent
   # alias AthenaWeb.Teachers.CourseLive.ClassFormComponent
 
-  def mount(params, _session, socket) do
+  def mount(_params, _session, socket) do
     current_user = socket.assigns.current_user
 
     socket =

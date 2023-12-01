@@ -31,7 +31,7 @@ defmodule AthenaWeb.UserRegistrationLive do
         </.error>
 
         <.input field={@form[:email]} type="email" label="Email" required />
-        <.input field={@form[:password]} type="password" label="Password" required />
+        <.input field={@form[:password]} type="password" label="Senha" required />
 
         <:actions>
           <.button phx-disable-with="Creating account..." class="w-full bg-green-800">

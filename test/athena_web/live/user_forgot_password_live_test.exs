@@ -11,9 +11,9 @@ defmodule AthenaWeb.UserForgotPasswordLiveTest do
     test "renders email page", %{conn: conn} do
       {:ok, lv, html} = live(conn, ~p"/users/reset_password")
 
-      assert html =~ "Forgot your password?"
-      assert has_element?(lv, ~s|a[href="#{~p"/users/register"}"]|, "Register")
-      assert has_element?(lv, ~s|a[href="#{~p"/users/log_in"}"]|, "Log in")
+      assert html =~ "Esqueceu sua senha?"
+      assert has_element?(lv, ~s|a[href="#{~p"/users/register"}"]|, "Criar Conta")
+      assert has_element?(lv, ~s|a[href="#{~p"/users/log_in"}"]|, "Entrar")
     end
 
     test "redirects if already logged in", %{conn: conn} do
@@ -41,7 +41,7 @@ defmodule AthenaWeb.UserForgotPasswordLiveTest do
         |> render_submit()
         |> follow_redirect(conn, "/")
 
-      assert Phoenix.Flash.get(conn.assigns.flash, :info) =~ "If your email is in our system"
+      assert Phoenix.Flash.get(conn.assigns.flash, :info) =~ "Se o seu email estiver no sistema"
 
       assert Repo.get_by!(Accounts.UserToken, user_id: user.id).context ==
                "reset_password"
@@ -56,7 +56,7 @@ defmodule AthenaWeb.UserForgotPasswordLiveTest do
         |> render_submit()
         |> follow_redirect(conn, "/")
 
-      assert Phoenix.Flash.get(conn.assigns.flash, :info) =~ "If your email is in our system"
+      assert Phoenix.Flash.get(conn.assigns.flash, :info) =~ "Se o seu email estiver no sistema"
       assert Repo.all(Accounts.UserToken) == []
     end
   end

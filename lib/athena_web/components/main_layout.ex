@@ -36,7 +36,7 @@ defmodule AthenaWeb.MainLayout do
           </div>
         </nav>
         <div class="mt-2">
-          <div :if={!is_nil(@current_user)} class="flex items-center justify-end p-6 lg:px-8">
+          <div :if={!is_nil(@current_user)} class="flex items-center justify-end p-6 lg:px-8 z-20">
             <label class="text-sm font-semibold text-white leading-6">
               <%= @current_user.email %>
             </label>
@@ -51,7 +51,7 @@ defmodule AthenaWeb.MainLayout do
         </div>
         <div
           :if={is_nil(@current_user)}
-          class="flex items-center justify-end p-6 lg:px-8 cursor-pointer"
+          class="flex items-center justify-end p-6 lg:px-8 cursor-pointer z-20"
         >
           <.link class="ml-4 text-sm font-semibold text-white" href={~p"/users/log_in"}>
             Entrar
@@ -87,8 +87,6 @@ defmodule AthenaWeb.MainLayout do
     </div>
     """
   end
-
-  attr :class, :string, default: nil
 
   def show_course(assigns) do
     ~H"""
