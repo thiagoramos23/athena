@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" style="scrollbar-gutter: stable;">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"
+    />
+    <meta name="csrf-token" content={get_csrf_token()} />
+    <.live_title suffix=" · Phoenix Framework">
+      <%= assigns[:page_title] || "Athena" %>
+    </.live_title>
+    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
+    </script>
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport"
-    content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-  <meta name="csrf-token" content={get_csrf_token()} />
-  <.live_title suffix=" · Phoenix Framework">
-    <%= assigns[:page_title] || "Athena" %>
-  </.live_title>
-  <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
-  <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
-  </script>
-</head>
-
-<body class="antialiased bg-gray-900">
-  <div
-    class="absolute lg:left-[calc(50%-4rem)] top-10 -z-20 transform-gpu blur-3xl lg:left-[calc(50%-18rem)] lg:left-48 top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]"
-    aria-hidden="true">
-    <div class="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-20"
-      style="clip-path: polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)">
+  <body class="antialiased bg-gray-900">
+    <div
+      class="absolute lg:left-[calc(50%-4rem)] top-10 -z-20 transform-gpu blur-3xl lg:left-[calc(50%-18rem)] lg:left-48 top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]"
+      aria-hidden="true"
+    >
+      <div
+        class="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-20"
+        style="clip-path: polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)"
+      >
+      </div>
     </div>
-  </div>
-  <%= @inner_content %>
-</body>
-
+    <%= @inner_content %>
+  </body>
 </html>

@@ -40,17 +40,26 @@ defmodule AthenaWeb.MainLayout do
             <label class="text-sm font-semibold text-white leading-6">
               <%= @current_user.email %>
             </label>
-            <.link class="ml-4 text-sm font-semibold text-white" href={~p"/users/log_out"} method="delete">
+            <.link
+              class="ml-4 text-sm font-semibold text-white"
+              href={~p"/users/log_out"}
+              method="delete"
+            >
               Sair
             </.link>
           </div>
         </div>
-        <div :if={is_nil(@current_user)} class="flex items-center justify-end p-6 lg:px-8 cursor-pointer">
+        <div
+          :if={is_nil(@current_user)}
+          class="flex items-center justify-end p-6 lg:px-8 cursor-pointer"
+        >
           <.link class="ml-4 text-sm font-semibold text-white" href={~p"/users/log_in"}>
             Entrar
           </.link>
-          <.link class="p-2 ml-4 text-sm font-semibold text-white bg-green-600 border-green-800 rounded-md"
-            href={~p"/users/register"}>
+          <.link
+            class="p-2 ml-4 text-sm font-semibold text-white bg-green-600 border-green-800 rounded-md"
+            href={~p"/users/register"}
+          >
             Criar Conta
           </.link>
         </div>
@@ -138,8 +147,11 @@ defmodule AthenaWeb.MainLayout do
   def list_classes_for_course(assigns) do
     ~H"""
     <div class="mt-12">
-      <div role="list" class="max-w-7xl md:min-w-full mt-7 flex snap-x snap-mandatory space-x-4 overflow-x-auto pb-6
-        lg:max-w-7xl lg:mt-8 lg:grid lg:snap-none lg:grid-cols-3 lg:gap-x-3.5 lg:gap-y-12 lg:space-x-0 lg:before:hidden lg:after:hidden">
+      <div
+        role="list"
+        class="max-w-7xl md:min-w-full mt-7 flex snap-x snap-mandatory space-x-4 overflow-x-auto pb-6
+        lg:max-w-7xl lg:mt-8 lg:grid lg:snap-none lg:grid-cols-3 lg:gap-x-3.5 lg:gap-y-12 lg:space-x-0 lg:before:hidden lg:after:hidden"
+      >
         <div :for={klass <- @course.classes} class="flex min-w-fit">
           <.link
             id={klass.slug}
