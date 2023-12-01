@@ -11,9 +11,9 @@ defmodule AthenaWeb.MainLayout do
     ~H"""
     <header class="mx-auto bg-transparent">
       <div class="flex">
-        <nav class="flex flex-row flex-auto p-6 lg:px-8" aria-label="Global">
+        <nav class="flex flex-row flex-auto p-7 lg:px-8" aria-label="Global">
           <div class="hidden lg:flex lg:gap-x-12">
-            <a href="/" class="text-sm font-semibold text-white leading-6">Cursos</a>
+            <a href="/" class="text-lg font-semibold text-white leading-6">Cursos</a>
             <div :if={!is_nil(@current_user)}>
               <a href="/my-courses" class="text-sm font-semibold text-white leading-6">Meus Cursos</a>
             </div>
@@ -36,36 +36,25 @@ defmodule AthenaWeb.MainLayout do
           </div>
         </nav>
         <div class="mt-2">
-          <%= render_slot(@inner_block) %>
-        </div>
-      </div>
-      <!-- Mobile menu, show/hide based on menu open state. -->
-      <%!-- <div class="lg:hidden" role="dialog" aria-modal="true">
-        <!-- Background backdrop, show/hide based on slide-over state. -->
-        <div class="fixed inset-0 z-50"></div>
-        <div class="fixed inset-y-0 right-0 z-50 w-full px-6 py-6 overflow-y-auto bg-gray-900 sm:max-w-sm sm:ring-1 sm:ring-white/10">
-          <div class="mt-6 flow-root">
-            <div class="-my-6 divide-y divide-gray-500/25">
-              <div class="py-6 space-y-2">
-                <a
-                  href="#"
-                  class="block px-3 py-2 -mx-3 text-base font-semibold text-white rounded-lg leading-7 hover:bg-gray-800"
-                >
-                  Cursos
-                </a>
-              </div>
-              <div class="py-6">
-                <a
-                  href="#"
-                  class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-800"
-                >
-                  Entrar
-                </a>
-              </div>
-            </div>
+          <div :if={!is_nil(@current_user)} class="flex items-center justify-end p-6 lg:px-8">
+            <label class="text-sm font-semibold text-white leading-6">
+              <%= @current_user.email %>
+            </label>
+            <.link class="ml-4 text-sm font-semibold text-white" href={~p"/users/log_out"} method="delete">
+              Sair
+            </.link>
           </div>
         </div>
-      </div> --%>
+        <div :if={is_nil(@current_user)} class="flex items-center justify-end p-6 lg:px-8 cursor-pointer">
+          <.link class="ml-4 text-sm font-semibold text-white" href={~p"/users/log_in"}>
+            Entrar
+          </.link>
+          <.link class="p-2 ml-4 text-sm font-semibold text-white bg-green-600 border-green-800 rounded-md"
+            href={~p"/users/register"}>
+            Criar Conta
+          </.link>
+        </div>
+      </div>
     </header>
     """
   end
@@ -73,13 +62,13 @@ defmodule AthenaWeb.MainLayout do
   def headline(assigns) do
     ~H"""
     <div class="relative overflow-hidden bg-transparent -z-20">
-      <div class="px-6 py-24 max-w-7xl lg:px-8">
-        <div class="max-w-xl lg:text-center">
-          <h2 class="mt-2 text-5xl font-normal tracking-normal text-left text-white sm:leading-tight sm:text-5xl">
+      <div class="px-6 py-24 max-w-7xl md:min-w-fit lg:px-8">
+        <div class="max-w-4xl lg:text-center">
+          <h2 class="max-w-xl mt-2 text-5xl font-normal tracking-normal text-left text-white sm:leading-tight sm:text-5xl">
             Aprenda a Construir Aplicações Íncriveis com
             <span class="font-bold">Elixir, LiveView e iOS</span>
           </h2>
-          <p class="mt-2 text-left text-gray-300 text-md font-normal">
+          <p class="mt-2 text-left text-gray-300 text-lg font-normal md:min-w-fit">
             Um jeito novo de aprender, mão na massa e divertido. Uma plataforma criada pra você que quer criar um produto completo do zero.
             Aprenda a criar aplicações WEB escaláveis com Elixir e LiveView e aplicações mobile nativas com iOS. Todas as aulas com conteúdo
             super bem explicado e muita mão na massa.
@@ -149,25 +138,26 @@ defmodule AthenaWeb.MainLayout do
   def list_classes_for_course(assigns) do
     ~H"""
     <div class="mt-12">
-      <ul role="list" class="grid md:grid-cols-4 md:gap-y-9 sm:grid-cols-4 sm:gap-x-2 lg:grid-cols-3">
-        <div :for={klass <- @course.classes} class="w-[95%]">
+      <div role="list" class="max-w-7xl md:min-w-full mt-7 flex snap-x snap-mandatory space-x-4 overflow-x-auto pb-6
+        lg:max-w-7xl lg:mt-8 lg:grid lg:snap-none lg:grid-cols-3 lg:gap-x-3.5 lg:gap-y-12 lg:space-x-0 lg:before:hidden lg:after:hidden">
+        <div :for={klass <- @course.classes} class="flex min-w-fit">
           <.link
             id={klass.slug}
             navigate={get_class_link(@course, klass, @paid_student, @current_user)}
           >
-            <li class="pt-4 md:pt-0">
-              <div class="block sm:mt-2 overflow-hidden bg-gray-100 rounded-lg outline-none group aspect-h-1 aspect-w-2">
+            <div class="md:pt-0 w-80 md:w-full">
+              <div class="flex-none snap-start scroll-ml-4 sm:max-w-none md:max-w-xs lg:max-w-2xl md:scroll-ml-6 lg:w-auto lg:px-2">
                 <img
                   :if={klass.state != :soon}
                   src={klass.thumbnail_url}
                   alt=""
-                  class="object-cover pointer-events-none group-hover:opacity-75"
+                  class="object-cover pointer-events-none group-hover:opacity-76 rounded-md max-h-48 md:max-h-56 min-w-full"
                 />
                 <img
                   :if={klass.state == :soon}
                   src="/images/soon.png"
                   alt=""
-                  class="object-cover pointer-events-none group-hover:opacity-75"
+                  class="object-fill pointer-events-none group-hover:opacity-75 rounded-md max-h-48 md:max-h-56 min-w-full"
                 />
                 <button type="button" class="absolute inset-0 focus:outline-none">
                   <span class="sr-only"><%= klass.name %></span>
@@ -175,7 +165,7 @@ defmodule AthenaWeb.MainLayout do
               </div>
               <div class="flex">
                 <div class="mt-2">
-                  <div class="px-1.5 py-0.5 text-sm font-medium text-white rounded rounded-lg">
+                  <div class="px-1.5 py-0.5 text-sm font-medium text-white rounded-lg">
                     <.icon :if={klass.state == :public} name="hero-eye" />
                     <.icon :if={klass.state == :private and @current_user} name="hero-eye" />
                     <.icon :if={klass.state == :private and !@current_user} name="hero-eye-slash" />
@@ -192,10 +182,10 @@ defmodule AthenaWeb.MainLayout do
               <p class="px-1.5 mt-1 text-sm font-normal text-gray-300 pointer-events-none">
                 <%= klass.summary %>
               </p>
-            </li>
+            </div>
           </.link>
         </div>
-      </ul>
+      </div>
     </div>
     """
   end

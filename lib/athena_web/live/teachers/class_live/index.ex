@@ -74,6 +74,7 @@ defmodule AthenaWeb.Teachers.ClassLive.Index do
 
   defp get_course_with_classes(teacher, course_slug) do
     Education.get_teacher_course_by_slug(teacher.id, course_slug)
+    E
   end
 
   def render(assigns) do
