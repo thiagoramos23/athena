@@ -117,7 +117,7 @@ defmodule AthenaWeb.MainLayout do
 
   def show_course_with_classes(assigns) do
     ~H"""
-    <div class="flex flex-col items-start mt-5 text-xl font-bold text-white antialised pl-2">
+    <div class="flex flex-col items-start mt-5 text-xl font-bold text-white antialised pl-4">
       <%= @course.name %>
       <span class="mt-2 text-sm font-normal text-gray-400">
         <%= @course.description %>
@@ -147,7 +147,7 @@ defmodule AthenaWeb.MainLayout do
   def list_classes_for_course(assigns) do
     ~H"""
     <div class="mt-12">
-      <div class="max-w-7xl md:min-w-full mt-7 flex snap-x snap-mandatory space-x-4 overflow-x-auto pb-6
+      <div class="pl-4 max-w-7xl md:min-w-full mt-7 flex snap-x snap-mandatory space-x-4 overflow-x-auto pb-6
         lg:max-w-7xl lg:mt-8 lg:grid lg:snap-none lg:grid-cols-3 lg:gap-x-3.5 lg:gap-y-12 lg:space-x-0 lg:before:hidden lg:after:hidden">
         <div :for={klass <- @course.classes} class="flex min-w-fit">
           <.link

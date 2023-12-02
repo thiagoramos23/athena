@@ -25,7 +25,7 @@ defmodule AthenaWeb.Students.CoursesLive.Index do
     <div>
       <MainLayout.headline />
       <div>
-        <div class="font-sans font-bold text-blue-400 text-3xl pl-2">
+        <div class="font-sans font-bold text-blue-400 text-3xl pl-4">
           Destaque
         </div>
       </div>
@@ -38,7 +38,7 @@ defmodule AthenaWeb.Students.CoursesLive.Index do
       </div>
       <div :if={@courses != []}>
         <div class="mt-10">
-          <div class="font-sans font-bold text-blue-400 text-3xl pl-2">
+          <div class="font-sans font-bold text-blue-400 text-3xl pl-4">
             Cursos
           </div>
         </div>
