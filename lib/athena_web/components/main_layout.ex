@@ -158,7 +158,7 @@ defmodule AthenaWeb.MainLayout do
                   :if={klass.state != :soon}
                   src={klass.thumbnail_url}
                   alt=""
-                  class="object-cover pointer-events-none group-hover:opacity-76 rounded-md max-h-48 md:max-h-56 min-w-full"
+                  class="object-cover pointer-events-none group-hover:opacity-76 rounded-md max-h-48 min-w-full md:max-h-56 md:w-3/5"
                 />
                 <img
                   :if={klass.state == :soon}
