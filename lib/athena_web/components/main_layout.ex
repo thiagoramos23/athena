@@ -88,6 +88,8 @@ defmodule AthenaWeb.MainLayout do
     """
   end
 
+  attr :class, :string, default: nil
+
   def show_course(assigns) do
     ~H"""
     <.link navigate={~p"/courses/#{@course.slug}"}>

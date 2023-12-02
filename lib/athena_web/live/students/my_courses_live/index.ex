@@ -18,7 +18,9 @@ defmodule AthenaWeb.Students.MyCoursesLive.Index do
       </div>
       <div class="mt-10 md:flex md:space-x-8">
         <div :for={course <- @my_courses}>
-          <MainLayout.show_course course={course} />
+          <div class="mb-12">
+            <MainLayout.show_course course={course} />
+          </div>
         </div>
       </div>
     </div>
