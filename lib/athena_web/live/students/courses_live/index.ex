@@ -36,19 +36,21 @@ defmodule AthenaWeb.Students.CoursesLive.Index do
           paid_student={User.paid_student?(@current_user)}
         />
       </div>
-      <div class="mt-10">
-        <div class="font-sans font-bold text-blue-400 text-3xl pl-2">
-          Cursos
+      <div :if={@courses != []}>
+        <div class="mt-10">
+          <div class="font-sans font-bold text-blue-400 text-3xl pl-2">
+            Cursos
+          </div>
         </div>
-      </div>
-      <div class="mt-10">
-        <div :for={course <- @courses}>
-          <MainLayout.show_course_with_classes
-            course={course}
-            current_user={@current_user}
-            paid_student={User.paid_student?(@current_user)}
-          />
-          <br />
+        <div class="mt-10">
+          <div :for={course <- @courses}>
+            <MainLayout.show_course_with_classes
+              course={course}
+              current_user={@current_user}
+              paid_student={User.paid_student?(@current_user)}
+            />
+            <br />
+          </div>
         </div>
       </div>
     </div>
