@@ -25,7 +25,7 @@ defmodule AthenaWeb.Students.CoursesLive.Index do
     <div>
       <MainLayout.headline />
       <div>
-        <div class="font-sans font-bold text-blue-400 text-3xl">
+        <div class="font-sans font-bold text-blue-400 text-3xl pl-2">
           Destaque
         </div>
       </div>
@@ -37,7 +37,7 @@ defmodule AthenaWeb.Students.CoursesLive.Index do
         />
       </div>
       <div class="mt-10">
-        <div class="font-sans font-bold text-blue-400">
+        <div class="font-sans font-bold text-blue-400 text-3xl pl-2">
           Cursos
         </div>
       </div>

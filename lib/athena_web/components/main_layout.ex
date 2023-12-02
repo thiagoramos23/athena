@@ -115,7 +115,7 @@ defmodule AthenaWeb.MainLayout do
 
   def show_course_with_classes(assigns) do
     ~H"""
-    <div class="flex flex-col items-start mt-5 text-xl font-bold text-white antialised">
+    <div class="flex flex-col items-start mt-5 text-xl font-bold text-white antialised pl-2">
       <%= @course.name %>
       <span class="mt-2 text-sm font-normal text-gray-400">
         <%= @course.description %>
@@ -152,7 +152,7 @@ defmodule AthenaWeb.MainLayout do
             id={klass.slug}
             navigate={get_class_link(@course, klass, @paid_student, @current_user)}
           >
-            <div class="md:pt-0 w-80 md:w-full">
+            <div class="md:pt-0 w-80 lg:w-full">
               <div class="flex-none snap-start scroll-ml-4 sm:max-w-none md:max-w-xs lg:max-w-2xl md:scroll-ml-6 lg:w-auto lg:px-2">
                 <img
                   :if={klass.state != :soon}

@@ -93,9 +93,9 @@ defmodule AthenaWeb.Students.ClassesLive.Show do
           />
         </div>
       </div>
-      <div class="flex justify-between md:max-w-6xl mx-auto mt-12 flex-items">
-        <div class="flex flex-col justify-start md:w-3/5 flex-items">
-          <div class="flex flex-col items-start text-3xl antialiased font-semibold flex-items">
+      <div class="mt-12 px-2 lg:flex lg:justify-between lg:max-w-6xl lg:mx-auto lg:flex-items">
+        <div class="flex flex-col justify-start lg:w-3/5 flex-items">
+          <div class="flex flex-col items-start md:items-center text-3xl antialiased font-semibold flex-items">
             <div class="flex justify-between">
               <%= @class.name %>
               <%= if @current_user do %>
@@ -119,12 +119,12 @@ defmodule AthenaWeb.Students.ClassesLive.Show do
               <%= @class.summary %>
             </span>
           </div>
-          <div class="mt-12 text-left prose invert">
+          <div class="mt-12 text-left prose invert md:text-center md:min-w-full">
             <%= raw(@class.description) %>
           </div>
         </div>
 
-        <div class="hidden md:block flex flex-col items-start w-2/5 ml-16 flex-items">
+        <div class="hidden lg:flex lg:flex-col lg:items-start lg:w-2/5 lg:ml-16 lg:flex-items">
           <div class="flex flex-row mb-4 font-semibold text-md">
             <%= @class.course.name %>
             <span class="text-sm pt-0.5 pl-4 font-normal text-gray-500">
